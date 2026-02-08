@@ -295,16 +295,27 @@
                 Whether you're a seasoned developer or just starting your journey, there's a place for you in DevSoc.
             </p>
 
-            <form class="max-w-md mx-auto space-y-4" id="newsletter-form">
-                <div class="flex gap-2">
-                    <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-4 rounded-lg bg-dark-800 border border-dark-700 text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all" required>
-                    <button type="submit" class="px-8 py-4 bg-primary-600 hover:bg-primary-700 rounded-lg font-semibold text-white transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] flex items-center gap-2">
-                        Join
-                        <i data-feather="send" class="w-4 h-4"></i>
-                    </button>
-                </div>
-                <p class="text-sm text-gray-500">Follow Us on Our Social Media platforms.</p>
-            </form>
+        <form class="max-w-md mx-auto space-y-4" id="newsletter-form" action="subscribe.php" method="POST">
+    <div class="flex gap-2">
+        <input type="email" name="email" placeholder="Enter your email" 
+               class="flex-1 px-6 py-4 rounded-lg bg-dark-800 border border-dark-700 text-white 
+               placeholder-gray-500 focus:outline-none focus:border-primary-500 focus:ring-2 
+               focus:ring-primary-500/20 transition-all" required>
+        <button type="submit" 
+                class="px-8 py-4 bg-primary-600 hover:bg-primary-700 rounded-lg font-semibold 
+                text-white transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] flex items-center gap-2">
+            Join
+            <i data-feather="send" class="w-4 h-4"></i>
+        </button>
+    </div>
+    <p class="text-sm text-gray-500">Follow Us on Our Social Media platforms.</p>
+</form>
+
+
+            
+
+
+            
 
             <div class="mt-12 flex justify-center gap-6">
                 <a href="#" class="w-12 h-12 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-gray-400 hover:text-primary-400 hover:border-primary-500/50 transition-all hover:scale-110">
@@ -332,4 +343,5 @@
     <script>feather.replace();</script>
 </body>
 </html>
+
 
