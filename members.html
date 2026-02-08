@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevSoc Members | Developer Society</title>
+    <meta name="description" content="Meet the talented developers, innovators, and creators who make up the DevSoc community.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='16 18 22 12 16 6'%3E%3C/polyline%3E%3Cpolyline points='8 6 2 12 8 18'%3E%3C/polyline%3E%3C/svg%3E">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#121212',
+                            700: '#1a1a1a',
+                            600: '#2a2a2a',
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['"Fira Code"', 'monospace'],
+                        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #8b5cf6, 0 0 10px #8b5cf6, 0 0 15px #8b5cf6' },
+                            '100%': { boxShadow: '0 0 10px #8b5cf6, 0 0 20px #8b5cf6, 0 0 30px #8b5cf6' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        /* Additional styles for members page */
+        .member-card {
+            transition: all 0.3s ease;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+        }
+        
+        .skill-tag {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.1));
+        }
+        
+        .role-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-gray-100 font-sans overflow-x-hidden selection:bg-primary-500 selection:text-white">
+
+    <!-- Navigation -->
+    <script src="components/navbar.js"></script>
+    <devsoc-navbar></devsoc-navbar>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-900/20 via-dark-900 to-purple-900/10"></div>
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary-500 to-transparent"></div>
+        
+        <!-- Animated Background Elements -->
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-600/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl" style="animation-delay: 2s;"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-dark-800 border border-primary-500/30 text-primary-400 text-sm font-mono mb-6">
+                <span class="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
+                <span>Meet the Community</span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-white via-primary-400 to-primary-600">
+                    Our Members
+                </span>
+            </h1>
+
+            <p class="max-w-2xl mx-auto text-lg text-gray-400 mb-10 leading-relaxed">
+                Get to know the talented developers, innovators, and creators who make up the DevSoc community at Rhodes University. 
+                From seasoned programmers to enthusiastic beginners, we're united by our passion for technology.
+            </p>
+
+            <!-- Stats Counter -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mt-12">
+                <div class="p-6 rounded-2xl bg-dark-800/50 border border-dark-700 backdrop-blur-sm">
+                    <div class="text-3xl font-bold text-primary-400 font-mono">150+</div>
+                    <div class="text-sm text-gray-500 mt-1">Active Members</div>
+                </div>
+                <div class="p-6 rounded-2xl bg-dark-800/50 border border-dark-700 backdrop-blur-sm">
+                    <div class="text-3xl font-bold text-primary-400 font-mono">12</div>
+                    <div class="text-sm text-gray-500 mt-1">Core Team</div>
+                </div>
+                <div class="p-6 rounded-2xl bg-dark-800/50 border border-dark-700 backdrop-blur-sm">
+                    <div class="text-3xl font-bold text-primary-400 font-mono">8+</div>
+                    <div class="text-sm text-gray-500 mt-1">Tech Stacks</div>
+                </div>
+                <div class="p-6 rounded-2xl bg-dark-800/50 border border-dark-700 backdrop-blur-sm">
+                    <div class="text-3xl font-bold text-primary-400 font-mono">15</div>
+                    <div class="text-sm text-gray-500 mt-1">Departments</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Members Grid -->
+    <section class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="filter-member-btn active px-6 py-3 rounded-lg bg-primary-600 text-white font-medium transition-all" data-filter="all">
+                    All Members
+                </button>
+                <button class="filter-member-btn px-6 py-3 rounded-lg bg-dark-800 text-gray-400 hover:text-white font-medium transition-all border border-dark-700" data-filter="core">
+                    Core Team
+                </button>
+                <button class="filter-member-btn px-6 py-3 rounded-lg bg-dark-800 text-gray-400 hover:text-white font-medium transition-all border border-dark-700" data-filter="web">
+                    Web Developers
+                </button>
+                <button class="filter-member-btn px-6 py-3 rounded-lg bg-dark-800 text-gray-400 hover:text-white font-medium transition-all border border-dark-700" data-filter="mobile">
+                    Mobile Devs
+                </button>
+                <button class="filter-member-btn px-6 py-3 rounded-lg bg-dark-800 text-gray-400 hover:text-white font-medium transition-all border border-dark-700" data-filter="ai">
+                    AI/ML
+                </button>
+                <button class="filter-member-btn px-6 py-3 rounded-lg bg-dark-800 text-gray-400 hover:text-white font-medium transition-all border border-dark-700" data-filter="design">
+                    Designers
+                </button>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="max-w-2xl mx-auto mb-12">
+                <div class="relative">
+                    <input type="text" id="member-search" placeholder="Search members by name, skills, or role..." 
+                           class="w-full px-6 py-4 pl-12 rounded-xl bg-dark-800 border border-dark-700 text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all">
+                    <i data-feather="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5"></i>
+                </div>
+            </div>
+
+         <!-- Members Grid - Committee Members -->
+<div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="all-members-grid">
+    <!-- Chairperson -->
+    <div class="member-card bg-dark-800 rounded-2xl p-6 border border-dark-700 overflow-hidden relative" data-category="core leadership">
+        <div class="role-badge px-3 py-1 bg-primary-500/20 border border-primary-500/30 rounded-full text-xs font-mono text-primary-400">
+            Chairperson
+        </div>
+        <div class="flex flex-col items-center text-center mb-4">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-primary-600 to-purple-600 p-1 mb-4">
+                <div class="w-full h-full rounded-full bg-dark-900 overflow-hidden">
+                    <div class="w-full h-full bg-dark-800 flex items-center justify-center text-primary-400">
+                        <i data-feather="award" class="w-12 h-12"></i>
+                    </div>
+                </div>
+            </div>
+            <h3 class="text-xl font-bold text-white">Hlumile Makalima</h3>
+            <p class="text-primary-400 text-sm font-mono mt-1">@hlumile_m</p>
+            <p class="text-gray-500 text-sm mt-2">Chairperson</p>
+        </div>
+        
+        <div class="space-y-4">
+            <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Focus Areas</h4>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-primary-400">Leadership</span>
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-primary-400">Strategy</span>
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-primary-400">Community</span>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Bio</h4>
+                <p class="text-gray-500 text-sm line-clamp-3">
+                    Leading DevSoc's vision and strategy. Coordinates with university administration and ensures the society meets its goals of bridging academic learning with industry practices.
+                </p>
+            </div>
+            
+            <div class="pt-4 border-t border-dark-700 flex justify-center gap-4">
+                <a href="#" class="text-gray-500 hover:text-primary-400 transition-colors">
+                    <i data-feather="github" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-primary-400 transition-colors">
+                    <i data-feather="linkedin" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-primary-400 transition-colors">
+                    <i data-feather="mail" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vice-Chairperson/Secretary -->
+    <div class="member-card bg-dark-800 rounded-2xl p-6 border border-dark-700 overflow-hidden relative" data-category="core leadership">
+        <div class="role-badge px-3 py-1 bg-primary-500/20 border border-primary-500/30 rounded-full text-xs font-mono text-primary-400">
+            Vice-Chair & Secretary
+        </div>
+        <div class="flex flex-col items-center text-center mb-4">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 p-1 mb-4">
+                <div class="w-full h-full rounded-full bg-dark-900 overflow-hidden">
+                    <div class="w-full h-full bg-dark-800 flex items-center justify-center text-purple-400">
+                        <i data-feather="file-text" class="w-12 h-12"></i>
+                    </div>
+                </div>
+            </div>
+            <h3 class="text-xl font-bold text-white">Mihle Ndabula</h3>
+            <p class="text-purple-400 text-sm font-mono mt-1">@mihle_nd</p>
+            <p class="text-gray-500 text-sm mt-2">Vice-Chairperson & Secretary</p>
+        </div>
+        
+        <div class="space-y-4">
+            <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Focus Areas</h4>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-purple-400">Administration</span>
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-purple-400">Communication</span>
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-purple-400">Documentation</span>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Bio</h4>
+                <p class="text-gray-500 text-sm line-clamp-3">
+                    Manages society records, meeting minutes, and official communications. Supports the chairperson in daily operations and ensures smooth coordination between committee members.
+                </p>
+            </div>
+            
+            <div class="pt-4 border-t border-dark-700 flex justify-center gap-4">
+                <a href="#" class="text-gray-500 hover:text-purple-400 transition-colors">
+                    <i data-feather="github" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-purple-400 transition-colors">
+                    <i data-feather="linkedin" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Treasurer -->
+    <div class="member-card bg-dark-800 rounded-2xl p-6 border border-dark-700 overflow-hidden relative" data-category="core finance">
+        <div class="role-badge px-3 py-1 bg-primary-500/20 border border-primary-500/30 rounded-full text-xs font-mono text-primary-400">
+            Treasurer
+        </div>
+        <div class="flex flex-col items-center text-center mb-4">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-green-600 to-emerald-600 p-1 mb-4">
+                <div class="w-full h-full rounded-full bg-dark-900 overflow-hidden">
+                    <div class="w-full h-full bg-dark-800 flex items-center justify-center text-green-400">
+                        <i data-feather="dollar-sign" class="w-12 h-12"></i>
+                    </div>
+                </div>
+            </div>
+            <h3 class="text-xl font-bold text-white">Rhulane Madukwe</h3>
+            <p class="text-green-400 text-sm font-mono mt-1">@rhulane_m</p>
+            <p class="text-gray-500 text-sm mt-2">Treasurer</p>
+        </div>
+        
+        <div class="space-y-4">
+            <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Focus Areas</h4>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-green-400">Budgeting</span>
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-green-400">Finance</span>
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-green-400">Sponsorships</span>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Bio</h4>
+                <p class="text-gray-500 text-sm line-clamp-3">
+                    Manages all financial aspects of DevSoc including budgeting, expense tracking, and fundraising. Ensures financial sustainability for society events and projects.
+                </p>
+            </div>
+            
+            <div class="pt-4 border-t border-dark-700 flex justify-center gap-4">
+                <a href="#" class="text-gray-500 hover:text-green-400 transition-colors">
+                    <i data-feather="github" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-green-400 transition-colors">
+                    <i data-feather="linkedin" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Manager -->
+    <div class="member-card bg-dark-800 rounded-2xl p-6 border border-dark-700 overflow-hidden relative" data-category="core design media">
+        <div class="role-badge px-3 py-1 bg-primary-500/20 border border-primary-500/30 rounded-full text-xs font-mono text-primary-400">
+            Media Manager
+        </div>
+        <div class="flex flex-col items-center text-center mb-4">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-pink-600 to-rose-600 p-1 mb-4">
+                <div class="w-full h-full rounded-full bg-dark-900 overflow-hidden">
+                    <div class="w-full h-full bg-dark-800 flex items-center justify-center text-pink-400">
+                        <i data-feather="camera" class="w-12 h-12"></i>
+                    </div>
+                </div>
+            </div>
+            <h3 class="text-xl font-bold text-white">Ntsumbedzeni Tshikovhi</h3>
+            <p class="text-pink-400 text-sm font-mono mt-1">@ntsumbedzeni_t</p>
+            <p class="text-gray-500 text-sm mt-2">Media Manager</p>
+        </div>
+        
+        <div class="space-y-4">
+            <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Focus Areas</h4>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-pink-400">Social Media</span>
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-pink-400">Content Creation</span>
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-pink-400">Branding</span>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Bio</h4>
+                <p class="text-gray-500 text-sm line-clamp-3">
+                    Oversees all media presence, including social media, photography, and promotional content. Creates engaging campaigns to attract new members and showcase society achievements.
+                </p>
+            </div>
+            
+            <div class="pt-4 border-t border-dark-700 flex justify-center gap-4">
+                <a href="#" class="text-gray-500 hover:text-pink-400 transition-colors">
+                    <i data-feather="instagram" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-pink-400 transition-colors">
+                    <i data-feather="twitter" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-pink-400 transition-colors">
+                    <i data-feather="youtube" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Events Manager -->
+    <div class="member-card bg-dark-800 rounded-2xl p-6 border border-dark-700 overflow-hidden relative" data-category="core events">
+        <div class="role-badge px-3 py-1 bg-primary-500/20 border border-primary-500/30 rounded-full text-xs font-mono text-primary-400">
+            Events Manager
+        </div>
+        <div class="flex flex-col items-center text-center mb-4">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-orange-600 to-yellow-600 p-1 mb-4">
+                <div class="w-full h-full rounded-full bg-dark-900 overflow-hidden">
+                    <div class="w-full h-full bg-dark-800 flex items-center justify-center text-orange-400">
+                        <i data-feather="calendar" class="w-12 h-12"></i>
+                    </div>
+                </div>
+            </div>
+            <h3 class="text-xl font-bold text-white">Nkateko Maringa</h3>
+            <p class="text-orange-400 text-sm font-mono mt-1">@nkateko_m</p>
+            <p class="text-gray-500 text-sm mt-2">Events Manager</p>
+        </div>
+        
+        <div class="space-y-4">
+            <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Focus Areas</h4>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-orange-400">Event Planning</span>
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-orange-400">Logistics</span>
+                    <span class="skill-tag px-3 py-1 rounded-full text-xs text-orange-400">Coordination</span>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="text-sm font-semibold text-gray-400 mb-2">Bio</h4>
+                <p class="text-gray-500 text-sm line-clamp-3">
+                    Plans and executes all DevSoc events, including workshops, hackathons, and networking sessions. Coordinates with sponsors, venues, and participants to ensure successful events.
+                </p>
+            </div>
+            
+            <div class="pt-4 border-t border-dark-700 flex justify-center gap-4">
+                <a href="#" class="text-gray-500 hover:text-orange-400 transition-colors">
+                    <i data-feather="github" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-orange-400 transition-colors">
+                    <i data-feather="linkedin" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-orange-400 transition-colors">
+                    <i data-feather="mail" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- You can keep or remove the additional placeholder members below -->
+    <!-- ... rest of the member cards can remain or be replaced ... -->
+</div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center gap-2 mt-12">
+                <button class="px-4 py-2 rounded-lg bg-dark-800 border border-dark-700 text-gray-400 hover:text-white transition-colors">
+                    Previous
+                </button>
+                <button class="px-4 py-2 rounded-lg bg-primary-600 text-white">1</button>
+                <button class="px-4 py-2 rounded-lg bg-dark-800 border border-dark-700 text-gray-400 hover:text-white transition-colors">
+                    2
+                </button>
+                <button class="px-4 py-2 rounded-lg bg-dark-800 border border-dark-700 text-gray-400 hover:text-white transition-colors">
+                    3
+                </button>
+                <button class="px-4 py-2 rounded-lg bg-dark-800 border border-dark-700 text-gray-400 hover:text-white transition-colors">
+                    Next
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 text-primary-400 text-sm font-mono mb-6">
+                <i data-feather="user-plus" class="w-4 h-4"></i>
+                <span>Join Us</span>
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Become a Member</h2>
+            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+                Ready to join our growing community of developers? Whether you're a beginner or an experienced developer, there's a place for you in DevSoc.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="index.html#join" class="px-8 py-4 bg-primary-600 hover:bg-primary-700 rounded-lg font-semibold text-white transition-all hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] flex items-center justify-center gap-2">
+                    <i data-feather="users" class="w-5 h-5"></i>
+                    Join the Community
+                </a>
+                <a href="index.html#events" class="px-8 py-4 border border-dark-700 rounded-lg font-semibold text-gray-300 hover:border-primary-500 hover:text-primary-400 transition-all hover:bg-primary-500/10 flex items-center justify-center gap-2">
+                    <i data-feather="calendar" class="w-5 h-5"></i>
+                    Attend Our Events
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <script src="components/footer.js"></script>
+    <devsoc-footer></devsoc-footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        // Initialize feather icons
+        feather.replace();
+        
+        // Member search functionality
+        document.getElementById('member-search').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const members = document.querySelectorAll('.member-card');
+            
+            members.forEach(member => {
+                const name = member.querySelector('h3').textContent.toLowerCase();
+                const skills = member.querySelectorAll('.skill-tag');
+                const bio = member.querySelector('.text-gray-500').textContent.toLowerCase();
+                
+                let skillText = '';
+                skills.forEach(skill => skillText += skill.textContent.toLowerCase() + ' ');
+                
+                if (name.includes(searchTerm) || skillText.includes(searchTerm) || bio.includes(searchTerm)) {
+                    member.style.display = 'block';
+                } else {
+                    member.style.display = 'none';
+                }
+            });
+        });
+        
+        // Filter functionality
+        document.querySelectorAll('.filter-member-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-member-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.classList.remove('bg-primary-600');
+                    btn.classList.add('bg-dark-800');
+                    btn.classList.add('text-gray-400');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                this.classList.add('bg-primary-600');
+                this.classList.remove('bg-dark-800');
+                this.classList.remove('text-gray-400');
+                this.classList.add('text-white');
+                
+                const filter = this.dataset.filter;
+                const members = document.querySelectorAll('.member-card');
+                
+                members.forEach(member => {
+                    if (filter === 'all') {
+                        member.style.display = 'block';
+                    } else {
+                        const categories = member.dataset.category.split(' ');
+                        if (categories.includes(filter)) {
+                            member.style.display = 'block';
+                        } else {
+                            member.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
