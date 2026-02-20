@@ -1,213 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Lisakhanya Tetani | Portfolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lisakhanya Tetani | Computer Science Major</title>
 
-        body {
-            background: #0f2027;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c7744);
-            color: white;
-            scroll-behavior: smooth;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        header {
-            padding: 20px 10%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+<style>
+:root {
+    --green1: #00ff88;
+    --green2: #00c853;
+    --dark1: #0a0f14;
+    --dark2: #001f1a;
+    --card: rgba(255,255,255,0.05);
+}
 
-        header h1 {
-            color: #00ff88;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-        nav a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: white;
-            font-weight: 500;
-            transition: 0.3s;
-        }
+body {
+    background: linear-gradient(135deg, var(--dark1), #002b24);
+    color: white;
+    overflow-x: hidden;
+}
 
-        nav a:hover {
-            color: #00ff88;
-        }
+/* Floating glow background */
+body::before {
+    content: "";
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0,255,136,0.15), transparent 70%);
+    top: -100px;
+    right: -100px;
+    z-index: -1;
+}
 
-        section {
-            padding: 80px 10%;
-        }
+/* HEADER */
+header {
+    position: fixed;
+    width: 100%;
+    padding: 15px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+}
 
-        .hero {
-            text-align: center;
-            padding-top: 120px;
-        }
+header h1 {
+    font-size: 1.3rem;
+    background: linear-gradient(45deg, var(--green1), var(--green2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        .hero h2 {
-            font-size: 2.8rem;
-            color: #00ff88;
-        }
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
 
-        .hero p {
-            margin-top: 15px;
-            font-size: 1.2rem;
-            color: #dcdcdc;
-        }
+nav a:hover {
+    color: var(--green1);
+}
 
-        .btn {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 10px 25px;
-            background: #00ff88;
-            color: black;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+/* SECTION */
+section {
+    padding: 110px 8% 80px 8%;
+}
 
-        .btn:hover {
-            background: white;
-            transform: scale(1.05);
-        }
+/* HERO */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
 
-        h3 {
-            margin-bottom: 30px;
-            font-size: 2rem;
-            color: #00ff88;
-        }
+.hero h2 {
+    font-size: 2.6rem;
+    background: linear-gradient(45deg, var(--green1), #00ffe5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        .skills-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+.hero p {
+    margin-top: 15px;
+    color: #ccc;
+}
 
-        .skill {
-            background: rgba(255,255,255,0.1);
-            padding: 10px 20px;
-            border-radius: 20px;
-            transition: 0.3s;
-        }
+.btn {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 30px;
+    border-radius: 30px;
+    background: linear-gradient(45deg, var(--green1), var(--green2));
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+    box-shadow: 0 0 15px var(--green1);
+}
 
-        .skill:hover {
-            background: #00ff88;
-            color: black;
-            transform: scale(1.1);
-        }
+.btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px var(--green1);
+}
 
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+/* CARDS */
+.card, .project-card {
+    background: var(--card);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(0,255,136,0.2);
+    transition: 0.4s ease;
+}
 
-        .project-card {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 15px;
-            transition: 0.3s;
-        }
+.card:hover, .project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px rgba(0,255,136,0.6);
+    border: 1px solid var(--green1);
+}
 
-        .project-card:hover {
-            transform: translateY(-10px);
-            background: #00ff88;
-            color: black;
-        }
+/* GRID */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0,0,0,0.4);
-            margin-top: 40px;
-        }
+.projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
 
-        footer a {
-            color: #00ff88;
-            text-decoration: none;
-        }
+/* TITLES */
+h3 {
+    margin-bottom: 20px;
+    color: var(--green1);
+}
 
-        @media (max-width: 768px) {
-            .hero h2 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+/* ZIGZAG DIVIDER */
+.zigzag {
+    display: block;
+    width: 100%;
+    height: 80px;
+}
+
+.alt-section {
+    background: linear-gradient(135deg, var(--dark2), #001510);
+}
+
+/* FADE-IN ANIMATION */
+.fade {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
+
+.fade.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media(max-width: 900px){
+    .hero, .grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
 </head>
+
 <body>
 
 <header>
     <h1>Lisakhanya Tetani</h1>
     <nav>
         <a href="#about">About</a>
-        <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
     </nav>
 </header>
 
-<section class="hero">
-    <h2>Third-Year Computer Science Student</h2>
-    <p>A passionate developer learning and building with modern technologies.</p>
-    <a href="#contact" class="btn">Contact Me</a>
-</section>
+<section class="hero fade">
+    <div>
+        <h2>Computer Science Major & Software Developer</h2>
+        <p>
+            Third-year CS student passionate about algorithms,
+            scalable systems, and writing clean efficient code.
+        </p>
+        <a href="#contact" class="btn">Contact Me</a>
+    </div>
 
-<section id="about">
-    <h3>About Me</h3>
-    <p>
-        I am a dedicated third year Computer Science student with a strong foundation in programming and problem solving. 
-        I enjoy building software solutions and continuously improving my technical skills. 
-        My goal is to grow as a developer and contribute to impactful technology projects.
-    </p>
-</section>
-
-<section id="skills">
-    <h3>Skills</h3>
-    <div class="skills-list">
-        <div class="skill">C (Basic)</div>
-        <div class="skill">HTML</div>
-        <div class="skill">CSS</div>
-        <div class="skill">JavaScript</div>
-        <div class="skill">Java</div>
-        <div class="skill">Python</div>
+    <div class="card">
+        <h3>Technical Skills</h3>
+        <p>C • Java • Python • JavaScript • HTML • CSS</p>
     </div>
 </section>
 
-<section id="projects">
+<!-- GREEN GRADIENT ZIGZAG -->
+<svg class="zigzag" viewBox="0 0 100 20" preserveAspectRatio="none">
+  <polygon fill="url(#grad1)" points="0,0 50,20 100,0 100,20 0,20"></polygon>
+  <defs>
+    <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00ff88"/>
+      <stop offset="100%" stop-color="#00c853"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<section id="about" class="alt-section fade">
+    <div class="grid-2">
+        <div class="card">
+            <h3>About Me</h3>
+            <p>
+                Dedicated Computer Science major with strong foundations
+                in programming, data structures, and problem solving.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Tutoring Experience</h3>
+            <p><strong>2025:</strong> Tutor for C101 & CS122</p>
+            <p><strong>2026:</strong> Tutor for CS101 & MAM201</p>
+        </div>
+    </div>
+</section>
+
+<svg class="zigzag" viewBox="0 0 100 20" preserveAspectRatio="none">
+  <polygon fill="url(#grad1)" points="0,0 50,20 100,0 100,20 0,20"></polygon>
+</svg>
+
+<section id="projects" class="fade">
     <h3>Projects</h3>
     <div class="projects">
         <div class="project-card">
             <h4>Student Management System</h4>
-            <p>A simple Java-based system to manage student records.</p>
+            <p>Java-based system for managing student records.</p>
         </div>
         <div class="project-card">
-            <h4>Personal Website</h4>
-            <p>A responsive website built using HTML, CSS, and JavaScript.</p>
+            <h4>Portfolio Website</h4>
+            <p>Modern responsive website with gradients and animations.</p>
         </div>
         <div class="project-card">
-            <h4>Python Calculator</h4>
-            <p>A command-line calculator application built in Python.</p>
+            <h4>Python CLI Calculator</h4>
+            <p>Command-line calculator with modular design.</p>
         </div>
     </div>
 </section>
 
-<section id="contact">
-    <h3>Contact</h3>
-    <p>Email: <a href="mailto:lisatetani12@gmail.com">lisatetani12@gmail.com</a></p>
+<section id="contact" class="fade">
+    <div class="card">
+        <h3>Contact</h3>
+        <p>Email: <a href="mailto:lisatetani12@gmail.com" style="color:#00ff88;">lisatetani12@gmail.com</a></p>
+    </div>
 </section>
 
 <footer>
-    <p>© 2026 Lisakhanya Tetani | Built with 💚</p>
+    © 2026 Lisakhanya Tetani | Computer Science Major
 </footer>
+
+<script>
+const faders = document.querySelectorAll('.fade');
+
+const appearOptions = {
+    threshold: 0.2
+};
+
+const appearOnScroll = new IntersectionObserver(function(entries, observer){
+    entries.forEach(entry => {
+        if(!entry.isIntersecting) return;
+        entry.target.classList.add('show');
+        observer.unobserve(entry.target);
+    });
+}, appearOptions);
+
+faders.forEach(fader => {
+    appearOnScroll.observe(fader);
+});
+</script>
 
 </body>
 </html>
