@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Shumirai</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+
+
+    <style>
+ 
+       
+        .topblock, .bottomblock {
+            background-color: #2D7543; 
+            padding: 2%;
+        }
+
+        .line{
+            background-color: #2D7543;
+            padding: 0.1%;
+            margin-top: 30%;
+            margin-bottom: 3%;
+        }
+
+
+        #pic {
+           border-radius: 5%;
+        }
+
+        #pic:hover{
+            transform: scale(1.05) rotate(2deg);
+
+        }
+
+        .left{
+            float:left;
+            margin-top: 2%;
+            margin-left: 2%;
+            margin-right: 2%;
+            
+        }
+
+        .right{
+            float: right;
+            margin-right: 10%;
+            margin-top: 4%;
+            font-family: "Oswald", sans-serif;
+            font-weight: 350;
+            font-style: normal;
+            font-size: 120%;
+        }
+
+        .column{
+            font-family:"Oswald", sans-serif;
+            border-radius: 2%;
+            border-style: solid;
+            border-color:black;
+            padding: 2% 2% 2% 2%;
+            background-color: #BEDFB4; 
+        }
+
+        .column:hover{
+            box-shadow: 10px 10px 15px grey;
+            background-color: #E9E9C4;
+            transition-delay: 0.5s ease-in-out;
+            transition-duration: 0.5s;
+        }
+
+        #hobbies{
+            margin-left: 2%;
+            margin-right: 8%;
+        }
+        
+
+        #contact{
+            margin-left: 8%;
+            margin-right: 2%;
+            text-align: center;
+        }
+
+        .container{
+            display:flex;
+            justify-content: space-around;
+            padding: 1%;
+            margin-bottom: 5%;
+        }
+
+        h3{
+            text-align: center;
+        }
+
+        body{
+            background-color: #E3F6F1;
+        }
+
+      
+
+    </style>
+
+
+</head>
+
+
+<body>
+
+    <div 
+        class = "topblock">
+    </div>
+
+
+    <div class = "left">
+        <img id = pic src = "SGunzo headshot smile.JPG" length = 800 width = 700 alt = Shumirai />
+        
+    </div>
+
+    <div class = "right">
+        <p> Hi! I'm </p>
+        <h1 id = "name"></h1>
+        
+        <p> I'm a Computer Science and Information Systems 3 student at Rhodes University. <br>
+            I'm a short, Shona (Zezuru), Christian woman from Harare, Zimbabwe and I hope <br>
+            to make a positive difference wherever I may be. <br>
+            I am also a tutor for CS1L. Welcome to my web page!  <br>
+            
+        </p>
+
+    </div>
+
+    <div 
+        class = "line">
+    </div>
+
+    <div class = "container">
+
+    <section class = "column" id = "hobbies">
+        <h3> Hobbies </h3>
+        <ul>  
+            <li> photography </li> 
+            <li> film </li>
+            <li> art </li>
+            <li> writing </li>
+        </ul>
+        
+        <p> There isn't a lot of time for that as a programmer, however, I enjoy them.
+            When I'm not coding, you’ll probably find me exploring these. </p>
+
+        <img src = art.jpg alt = "artpic" length = 300 width = 300 />
+
+        
+        
+    </section>
+
+    <section class = "column" id = "backstory">
+        <h3> Backstory </h3>
+        <p> I did Sciences in high school. After my first two years, I thought I would pivot to Business, 
+            however, I stayed in the Science class. Out of all the subjects there, my favourite (and most bearable) was Computer Science.
+            My Advanced Level subjects for my final year Cambridge examinations were then Physics, Computer Science, and Mathematics. 
+            I had to really work and It was a tough journey but I made it! I came to university and decided to continue on that path
+            and here I am. My classmates in the department are amazing people and I'm entirely grateful for them.
+        </p>
+
+        <img src = hamilton.jpg alt = "us in hamilton" length = 400 width = 400 />
+    </section>
+
+    <section class = "column" id = "contact">
+        <h3> Contact Me  </h3> <br>
+        <p> &#x1F4E4 g24g5573@campus.ru.ac.za </p> <br>
+        <p> &#x2709 shumigunzo@gmail.com </p> <br>
+        <p> &#x1F4CC Rhodes University, Makhanda </p> <br>
+       
+
+         <img src = computer.jpg alt = "computer" length = 300 width = 300 />
+
+    </div>
+
+    <div 
+        class = "topblock">
+         <footer>
+        © 2026 Shumirai Gunzo | love, creativity & good vibes
+        </footer>
+    </div>
+
+   
+
+    <script>
+    const nameText = "Shumirai Gunzo";
+    let i = 0;
+
+    function typeName() {
+        if (i < nameText.length) {
+            document.getElementById("name").innerHTML += nameText.charAt(i);
+            i++;
+            setTimeout(typeName, 100);
+        }
+    }
+
+    typeName();
+    </script>
+
+
+</body>
+
+
+</html>

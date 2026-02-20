@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Name - CV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        section {
+            padding: 30px 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h2 {
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 5px;
+        }
+        .no-underline {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .about-text h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .about-text p {
+            text-align: center;
+            margin: 0;
+        }
+
+        /* ABOUT SECTION LAYOUT */
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .about-text {
+            flex: 2;
+        }
+
+        .about-image {
+            flex: 1;
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 10px;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        button {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1a252f;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            margin-top: 30px;
+        }
+
+        /* Responsive (for phones) */
+        @media (max-width: 768px) {
+            .about-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Rowan Fortune</h1>
+    <p>BSC CS and IS | 3rd Year | Email: fortunerowan0@gmail.com</p>
+</header>
+
+<section>
+    <div class="about-section">
+
+        <div class="about-container">
+
+            <div class="about-text">
+                <h2 class="no-underline">About Me</h2>
+                <p>
+                    I am currently studying a BSc in Computer Science and Information Systems. 
+                    I enjoy learning through building practical projects and challenging myself to 
+                    improve my skills. I serve as the Vice Chair and Treasurer of the Rifle Club, 
+                    where I’ve developed leadership, responsibility, and teamwork skills. Outside of 
+                    academics, I enjoy shooting sport, creating content, and continuously exploring new 
+                    ideas that help me grow both personally and professionally.
+                </p>
+            </div>
+
+            <div class="about-image">
+                <img src="rowan.jpeg" alt="Your Photo">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Leadership Experience</h2>
+
+    <div class="card">
+    <h3>Rifle Club Vice Chair and Treasurer</h3>
+        <p><strong>2026 - Present</strong></p>
+        <ul>
+            <li>Lead club meetings and coordinate events for over 50 members</li>
+            <li>Manage club finances and ensure budget compliance</li>
+        </ul>
+    </div>
+
+    <div class="card">
+    <h3>Rifle Club Chairperson</h3>
+        <p><strong>2024 - 2025</strong></p>
+        <ul>
+            <li>Lead club meetings and coordinate events for over 50 members</li>
+            <li>Manage club finances and ensure budget compliance</li>
+        </ul>
+    </div>
+    <div class="card">
+    <h3>Cash loan consultant assistant</h3>
+        <p><strong>2023 Nov - 2024 Jan</strong></p>
+        <ul>
+            <li>Lead club meetings and coordinate events for over 50 members</li>
+            <li>Manage club finances and ensure budget compliance</li>
+        </ul>
+    </div>
+</section>
+
+
+<section>
+    <h2>Technical Skills</h2>
+    <div class="card">
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>Python</li>
+            <li>Java</li>
+            <li>SQL</li>
+            <li>Delphi</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    © 2026 Your Name
+</footer>
+
+</body>
+</html>

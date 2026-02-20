@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onelisa | Personal Website</title>
+
+  <style>
+
+      .profile-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;       /* Makes the image circular */
+    object-fit: cover;        /* Prevents image distortion */
+    border: 5px solid #ff7a00; /* Orange border */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+    :root {
+      --orange: #FFB347;
+      --light-orange: #fff3e6;
+      --white: #ffffff;
+      --dark: #333;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: var(--white);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: var(--orange);
+      color: var(--white);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav {
+      width: 90%;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav h1 {
+      font-size: 26px;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--white);
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      opacity: 0.7;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(to right, var(--orange), #ff9a33);
+      color: var(--white);
+      text-align: center;
+      padding: 90px 20px;
+    }
+
+    .hero h2 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: var(--white);
+      color: var(--orange);
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #ffe0cc;
+    }
+
+    section {
+      width: 90%;
+      margin: auto;
+      padding: 60px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 30px;
+      color: var(--orange);
+    }
+
+    /* About */
+    .about p {
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+      font-size: 18px;
+    }
+    /* Pyramid Layout */
+.pyramid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.row {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Skill Cards */
+.skill-card {
+  width: 200px;
+  background: #fff3e6;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 6px solid #ff7a00;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.skill-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.skill-card h3 {
+  color: #ff7a00;
+  margin-bottom: 15px;
+}
+
+
+/* Animate on hover */
+.skill-card:hover .html { width: 95%; }
+.skill-card:hover .css { width: 90%; }
+.skill-card:hover .js { width: 75%; }
+.skill-card:hover .sql { width: 85%; }
+.skill-card:hover .sa { width: 88%; }
+.skill-card:hover .tutor { width: 92%; }
+
+
+    /* Projects */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--light-orange);
+      padding: 20px;
+      border-radius: 10px;
+      transition: 0.3s;
+      border-left: 5px solid var(--orange);
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Experience */
+    .timeline {
+      border-left: 3px solid var(--orange);
+      padding-left: 20px;
+    }
+
+    .timeline-item {
+      margin-bottom: 20px;
+    }
+
+    .timeline-item h4 {
+      color: var(--orange);
+    }
+
+    /* Services */
+    .services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .service {
+      background: var(--orange);
+      color: var(--white);
+      padding: 25px;
+      border-radius: 10px;
+      width: 250px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .service:hover {
+      background: #e66a00;
+    }
+
+
+
+    /* Footer */
+    footer {
+      background: var(--orange);
+      color: var(--white);
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+
+
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <h1>Onelisa</h1>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#services">Services</a></li>
+     
+    </ul>
+  </nav>
+</header>
+<div class="profile-container">
+  <img src="images\ussa pic.jpg" alt="My Profile" class="profile-img">
+  <h2>Onelisa</h2>
+</div>
+
+<section class="hero" id="home">
+  <h2>Hello, I'm Onelisa 👩‍💻</h2>
+  <p>Web Developer | Mentor | Tutor</p>
+
+</section>
+
+<section class="about" id="about">
+  <h2 class="section-title">About Me</h2>
+  <p>
+    I am a Developer and aspiring system Developer who enjoys building
+    modern websites, tutoring students, and solving real-world problems using technology.
+    I focus on clean design, usability, and impactful digital solutions.
+  </p>
+
+
+</section>
+
+<section id="skills">
+  <h2 class="section-title">My Skills</h2>
+
+  <div class="pyramid">
+
+    <!-- Top -->
+    <div class="skill-card">
+      <h3>Systems Analysis</h3>
+      <div class="progress"><div class="progress-bar sa"></div></div>
+    </div>
+
+    <!-- Middle Row -->
+    <div class="row">
+      <div class="skill-card">
+        <h3>JavaScript</h3>
+        <div class="progress"><div class="progress-bar js"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <h3>SQL</h3>
+        <div class="progress"><div class="progress-bar sql"></div></div>
+      </div>
+    </div>
+
+    <!-- Bottom Row -->
+    <div class="row">
+      <div class="skill-card">
+        <h3>HTML5</h3>
+        <div class="progress"><div class="progress-bar html"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <h3>CSS3</h3>
+        <div class="progress"><div class="progress-bar css"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <h3>Tutoring</h3>
+        <div class="progress"><div class="progress-bar tutor"></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="projects">
+  <h2 class="section-title">Community Engagment Experience</h2>
+  <div class="projects">
+    <div class="project-card">
+      <h3>2025 Squash Club CE representative</h3>
+      <p>Connected the squash club members to the greater makhanda community, by hosting monthly coaching sessions with our partner schools.</p>
+    </div>
+    <div class="project-card">
+      <h3>Cooked food for the children at Kids Heaven home</h3>
+      <p>Cooked food on Saturdays for the children ensuring that they recived healthy and nutritious meals. </p>
+    </div>
+    <div class="project-card">
+      <h3>Volunteered at Thandulwazi maths and Science</h3>
+      <p> Handled the admin for the school, prepared and served meals to the students every saturday</p>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <h2 class="section-title">Services</h2>
+  <div class="services">
+    <div class="service">
+      <h3>Web Development</h3>
+      <p>Building modern and responsive websites.</p>
+    </div>
+    <div class="service">
+      <h3>Mentorship</h3>
+      <p>Proving both academic and social life guidance for students, ensuring they are able to navigate student life.</p>
+    </div>
+    <div class="service">
+      <h3>Tutoring</h3>
+      <p>Helping students excel in IT and Business subjects.</p>
+    </div>
+  </div>
+</section>
+
+
+
+<footer>
+  <p>© 2026 Onelisa | Personal Website</p>
+</footer>
+
+</body>
+</html>

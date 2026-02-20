@@ -1,0 +1,50 @@
+
+main ul {
+    display: block;          /* stack items vertically */
+    padding-left: 20px;      /* normal indentation */
+    margin-top: 10px;
+}
+
+main li {
+    margin-bottom: 20px;     /* space between items */
+    line-height: 1.6;
+}
+
+/* Make headings inside lists cleaner */
+main h3 {
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+/* Improve paragraph spacing */
+main p {
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+/* Keep nav unaffected */
+nav ul {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    gap: 20px;
+    padding-left: 0;
+}
+body{
+    background-color: #0f172a;
+    color: #e2e8f0;
+    font-family: Arial, sans-serif;
+    margin: 50px;
+
+}
+a{
+    color: #38bdf8;
+    text-decoration: none;
+}
+h1{
+    text-align: left;
+}
+header{
+    margin-bottom: auto;
+}
