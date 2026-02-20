@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portfolio | Showcase Your Work</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .skill-bar {
+            transition: width 1.5s ease-in-out;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-sm z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="text-xl font-bold gradient-text">Ks Portfolio</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-indigo-600">Home</a>
+                    <a href="#projects" class="nav-link text-gray-700 hover:text-indigo-600">Projects</a>
+                    <a href="#skills" class="nav-link text-gray-700 hover:text-indigo-600">Skills</a>
+                    <a href="#courses" class="nav-link text-gray-700 hover:text-indigo-600">Courses</a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-indigo-600">Contact</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="menu-btn" class="text-gray-700">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">Home</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">Projects</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">Skills</a>
+                <a href="#courses" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">Courses</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Helloz, I'm <span class="gradient-text">Ntsumbedzeni Tshikovhi</span></h1>
+                <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-gray-600">Computer Science Student</h2>
+                <p class="text-lg text-gray-600 mb-8">Passionate about creating innovative solutions through code. Currently pursuing my degree in Computer Science and Mathematical Statistics.</p>
+                <div class="flex space-x-4">
+                    <a href="#projects" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-300">Check My Work</a>
+                    <a href="#contact" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-100 transition-all duration-300">Contact Me</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative w-64 h-64 md:w-80 md:h-80">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20 blur-xl animate-pulse"></div>
+                    <img src="WhatsApp Image 2025-07-15 at 17.15.24_aeaacd68.jpg" alt="Profile" class="relative w-full h-full object-cover rounded-full border-4 border-white shadow-xl animate-float">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 bg-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">My <span class="gradient-text">Projects</span></h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Here are some of my recent projects that showcase my skills and creativity.</p>
+            </div>
+
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+                    <div class="h-48 bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center">
+                        <i class="fas fa-laptop-code text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">E-Commerce Platform</h3>
+                        <p class="text-gray-600 mb-4">A full-stack e-commerce solution with payment integration and inventory management.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">React</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">Node.js</span>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 text-sm rounded-full">MongoDB</span>
+                        </div>
+                        <a href="#" class="text-blue-600 font-medium hover:text-blue-800 flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+                    <div class="h-48 bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center">
+                        <i class="fas fa-mobile-alt text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Hotel Website</h3>
+                        <p class="text-gray-600 mb-4">Mobile application that tracks workouts, nutrition, and provides personalized recommendations.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-purple-100 text-purple-800 text-sm rounded-full">Flutter</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-800 text-sm rounded-full">Firebase</span>
+                        </div>
+                        <a href="#" class="text-blue-600 font-medium hover:text-blue-800 flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+                    <div class="h-48 bg-gradient-to-r from-purple-400 to-pink-500 flex items-center justify-center">
+                        <i class="fas fa-chart-line text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Data Visualization Dashboard</h3>
+                        <p class="text-gray-600 mb-4">Interactive dashboard for analyzing and visualizing complex datasets with real-time updates.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">D3.js</span>
+                            <span class="px-3 py-1 bg-orange-100 text-orange-800 text-sm rounded-full">Python</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-800 text-sm rounded-full">Flask</span>
+                        </div>
+                        <a href="#" class="text-blue-600 font-medium hover:text-blue-800 flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-100 transition-all duration-300">
+                    View All Projects <i class="fas fa-chevron-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">My <span class="gradient-text">Skills</span></h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">I've developed a diverse set of skills through coursework and hands-on projects.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-semibold mb-6 text-gray-800">Technical Skills</h3>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">JavaScript/CSS/HTML</span>
+                            <span class="text-gray-600">90%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-blue-600 h-2.5 rounded-full skill-bar" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">Python/Java</span>
+                            <span class="text-gray-600">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-green-500 h-2.5 rounded-full skill-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">SQL</span>
+                            <span class="text-gray-600">88%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-purple-500 h-2.5 rounded-full skill-bar" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">Assembly/C</span>
+                            <span class="text-gray-600">80%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-yellow-500 h-2.5 rounded-full skill-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-6 text-gray-800">Professional Skills</h3>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center p-4 bg-white rounded-lg shadow-sm border border-gray-100 w-full md:w-auto">
+                            <div class="p-3 bg-blue-100 rounded-full mr-4">
+                                <i class="fas fa-users text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Teamwork</h4>
+                                <p class="text-sm text-gray-600">Communication</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-4 bg-white rounded-lg shadow-sm border border-gray-100 w-full md:w-auto">
+                            <div class="p-3 bg-green-100 rounded-full mr-4">
+                                <i class="fas fa-lightbulb text-green-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Problem Solving</h4>
+                                <p class="text-sm text-gray-600">Algorithmic thinking</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-4 bg-white rounded-lg shadow-sm border border-gray-100 w-full md:w-auto">
+                            <div class="p-3 bg-purple-100 rounded-full mr-4">
+                                <i class="fas fa-comments text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Communication</h4>
+                                <p class="text-sm text-gray-600">Clear & concise</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-4 bg-white rounded-lg shadow-sm border border-gray-100 w-full md:w-auto">
+                            <div class="p-3 bg-yellow-100 rounded-full mr-4">
+                                <i class="fas fa-clock text-yellow-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Time Management</h4>
+                                <p class="text-sm text-gray-600">Meeting deadlines</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mt-8 mb-4 text-gray-800">Tools & Technologies</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full">Git/GitHub</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full">Docker</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full">AWS</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full">Figma</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full">Postman</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full">Jira</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-16 bg-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Relevant <span class="gradient-text">Courses</span></h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Academic coursework that has contributed to my technical foundation.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="p-3 bg-blue-100 rounded-lg mr-4">
+                            <i class="fas fa-code text-blue-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Data Structures & Algorithms</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Mastered fundamental algorithms and data structures with implementations in Java and Python.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">University of Tech</span>
+                        <span class="text-sm font-medium bg-blue-50 text-blue-600 px-3 py-1 rounded-full">A+</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="p-3 bg-green-100 rounded-lg mr-4">
+                            <i class="fas fa-database text-green-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Database Systems</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Designed and implemented relational databases with SQL and learned NoSQL concepts.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">University of Tech</span>
+                        <span class="text-sm font-medium bg-green-50 text-green-600 px-3 py-1 rounded-full">A</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="p-3 bg-purple-100 rounded-lg mr-4">
+                            <i class="fas fa-network-wired text-purple-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Computer Networks</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Learned network protocols, architectures, and security principles with hands-on labs.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">University of Tech</span>
+                        <span class="text-sm font-medium bg-purple-50 text-purple-600 px-3 py-1 rounded-full">A-</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="p-3 bg-yellow-100 rounded-lg mr-4">
+                            <i class="fas fa-lock text-yellow-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Cybersecurity</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Explored security vulnerabilities, encryption techniques, and ethical hacking principles.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">University of Tech</span>
+                        <span class="text-sm font-medium bg-yellow-50 text-yellow-600 px-3 py-1 rounded-full">B+</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="p-3 bg-red-100 rounded-lg mr-4">
+                            <i class="fas fa-brain text-red-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Machine Learning</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Implemented various ML algorithms and worked on predictive modeling projects.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">Rhoades University</span>
+                        <span class="text-sm font-medium bg-red-50 text-red-600 px-3 py-1 rounded-full">A</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="p-3 bg-indigo-100 rounded-lg mr-4">
+                            <i class="fas fa-mobile text-indigo-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Mobile App Development</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Built cross-platform mobile applications using Flutter and React Native frameworks.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">University of Tech</span>
+                        <span class="text-sm font-medium bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full">A-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Get In <span class="gradient-text">Touch</span></h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">I'm always open to discussing new opportunities, projects, or collaborations.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="John Doe">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="john@example.com">
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="Project Inquiry">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="Your message here..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-300">
+                            Send Message <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 h-full">
+                        <h3 class="text-xl font-bold mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="p-3 bg-blue-100 rounded-full mr-4">
+                                    <i class="fas fa-envelope text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Email</h4>
+                                    <a href="mailto:kovhi.tshikovhi17.27@gmail.com" class="text-blue-600 hover:underline">kovhi.tshikovhi17.27@gmail</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="p-3 bg-green-100 rounded-full mr-4">
+                                    <i class="fas fa-phone-alt text-green-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Phone</h4>
+                                    <a href="tel:+1234567890" class="text-gray-600">076 103 2396</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="p-3 bg-purple-100 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt text-purple-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Location</h4>
+                                    <p class="text-gray-600">Adamson House, RHd</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="p-3 bg-yellow-100 rounded-full mr-4">
+                                    <i class="fas fa-clock text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Availability</h4>
+                                    <p class="text-gray-600">Monday - Friday, 9AM - 5PM PST</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mt-10 mb-6">Connect With Me</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="p-3 bg-gray-100 rounded-full hover:bg-blue-100 transition-all">
+                                <i class="fab fa-linkedin-in text-blue-600"></i>
+                            </a>
+                            <a href="#" class="p-3 bg-gray-100 rounded-full hover:bg-gray-200 transition-all">
+                                <i class="fab fa-github text-gray-800"></i>
+                            </a>
+                            <a href="#" class="p-3 bg-gray-100 rounded-full hover:bg-blue-100 transition-all">
+                                <i class="fab fa-twitter text-blue-400"></i>
+                            </a>
+                            <a href="#" class="p-3 bg-gray-100 rounded-full hover:bg-pink-100 transition-all">
+                                <i class="fab fa-instagram text-pink-600"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-xl font-bold gradient-text">Portfolio</a>
+                    <p class="text-gray-400 mt-2">© 2023 Ntsumbedzeni Tshikovhi. All rights reserved.</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0">
+                    <a href="#home" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                    <a href="#projects" class="text-gray-400 hover:text-white transition-colors">Projects</a>
+                    <a href="#skills" class="text-gray-400 hover:text-white transition-colors">Skills</a>
+                    <a href="#courses" class="text-gray-400 hover:text-white transition-colors">Courses</a>
+                    <a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">Built with ❤️ using HTML, CSS, and JavaScript</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                    
+                    // Scroll to target
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animate skill bars when they come into view
+        const animateSkillBars = () => {
+            const skillBars = document.querySelectorAll('.skill-bar');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const width = entry.target.style.width;
+                        entry.target.style.width = '0';
+                        setTimeout(() => {
+                            entry.target.style.width = width;
+                        }, 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            skillBars.forEach(bar => {
+                observer.observe(bar);
+            });
+        };
+        
+        // Initialize animations when page loads
+        window.addEventListener('load', () => {
+            animateSkillBars();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevSoc | Developers Association</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                        },
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#121212',
+                            700: '#1a1a1a',
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['"Fira Code"', 'monospace'],
+                        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body class="bg-dark-900 text-gray-100 font-sans overflow-x-hidden">
+
+<!-- Navbar -->
+<script src="components/navbar.js"></script>
+<devsoc-navbar></devsoc-navbar>
+
+<!-- Header -->
+<section class="pt-32 pb-20 text-center relative">
+    <div class="absolute inset-0 bg-primary-600/10"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+            The <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-primary-600">
+                Developers Association
+            </span>
+        </h1>
+        <p class="text-gray-400 text-lg">
+            Lead Developers & Tutors driving technical excellence at DevSoc.
+        </p>
+    </div>
+</section>
+
+<!-- Association Members -->
+<section class="pb-32">
+    <div class="max-w-6xl mx-auto px-4">
+
+        <!-- Lead Developer (Top Center) -->
+        <div class="flex justify-center mb-20">
+            <div class="group text-center">
+                <a href="Tutor Portfolios\NT\UI.html" class="block">
+                <div class="w-28 h-28 rounded-full bg-dark-800 border-2 border-primary-500 flex items-center justify-center 
+                            text-primary-400 group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(139,92,246,0.6)]
+                            transition-all duration-300 mx-auto">
+                    <i data-feather="user" class="w-12 h-12"></i>
+                </div>
+                </a>
+                 <p class="mt-4 font-semibold text-lg">Nstumbedzeni Tshikovhi </p>
+                 <br><p class="text-sm text-gray-500 font-mono">Public Relations Representative</p>
+                <p class="mt-4 font-semibold text-lg">Lead Developer</p>
+                <p class="text-sm text-gray-500 font-mono">Association Head</p>
+            </div>
+        </div>
+
+        <!-- Other 17 Members -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-10 text-center">
+
+            <!-- Member Card -->
+            <div class="group">
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center 
+                            text-primary-400 mx-auto group-hover:border-primary-500 
+                            group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] 
+                            group-hover:scale-110 transition-all">
+                    <i data-feather="user" class="w-8 h-8"></i>
+                </div>
+                <p class="mt-3 font-medium">Jordan Prince</p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Lead Developer
+                </p>
+            </div>
+
+            <!-- Duplicate this block for all members -->
+            <!-- You need 17 total below -->
+
+            <!-- QUICK FILL (copy/paste & rename) -->
+            <!-- Member 2 -->
+            <div class="group">
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                <p class="mt-3 font-medium">Abona Ntsaluba</p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+
+            <!-- Member 3 -->
+            <div class="group">
+                <a href="Tutor Portfolios\Kat.html" class="block">
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                </a>
+                <p class="mt-3 font-medium">Katlego Masipa</p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+
+
+    <!-- Member 4 -->
+            <div class="group">
+                  <a href="Tutor Portfolios\Unam.html" class="block">
+
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                </a>
+
+                <p class="mt-3 font-medium"> Latita Noholoza </p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+
+
+     <!-- Member 5 -->
+            <div class="group">
+                <a href="Tutor Portfolios\lisa.html">
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                </a>
+                <p class="mt-3 font-medium">Lisakhanya Tetani</p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+
+            <!-- Member 6 -->
+            <div class="group">
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                <p class="mt-3 font-medium">Motheo Tshabalala</p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+
+
+    <!-- Member 7 -->
+            <div class="group">
+
+                  <a href="Tutor Portfolios\Nig\Nigel.html" class="block">
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+            </a>
+                <p class="mt-3 font-medium">Nigel Qango</p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+
+   
+            <!-- Member 8 -->
+            <div class="group">
+                <a href="Tutor Portfolios\Onelisa\One.html" class="block">
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                </a>
+
+                <p class="mt-3 font-medium"> Onelisa Majova </p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+
+            <!-- Member 9 -->
+            <div class="group">
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                <p class="mt-3 font-medium">Nthabang Somhlahlo</p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+
+
+    <!-- Member 10 -->
+            <div class="group">
+                <a  href="Tutor Portfolios\Rowan\Row.html" class="block">
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                </a>
+                <p class="mt-3 font-medium">Rowan Fortune </p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+
+
+     <!-- Member 11 -->
+            <div class="group">
+                <a href="Tutor Portfolios\Shumi\SGunzo.html" class="block" >
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                </a>
+                <p class="mt-3 font-medium"> Shumirai Gunzo </p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+
+            <!-- Member 12 -->
+            <div class="group">
+                <a href="Tshephang.html" class="block" >
+                    <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                </a>
+                <p class="mt-3 font-medium"> Tshepang Makgaloa </p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+
+
+    <!-- Member 13 -->
+            <div class="group">
+                <a href="Ulelethu Rigala Portfolio\portfolio.html" class="block">
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                </a>
+                <p class="mt-3 font-medium">Ulelethu Rigala </p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+        
+
+
+                <!-- Member 14 -->
+            <div class="group">
+                <a href="Pranay_Portfolio\pranay_site.html" class="block" >
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                </a>
+                <p class="mt-3 font-medium"> Pranay Patel </p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+        
+
+            <!-- Member 15 -->
+            <div class="group">
+                <a href="Lethabo.html" class="block">
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+        
+                <p class="mt-3 font-medium"> Lethabo Seteno </p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+        </a>
+
+
+    <!-- Member 16 -->
+            <div class="group">
+                <a href="Tutor Portfolios\OT\home.html">
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                </a>
+                <p class="mt-3 font-medium">Olothando Hem</p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+
+
+     <!-- Member 17 -->
+            <div class="group">
+                <a href="" class="block" >
+                <div class="w-20 h-20 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-primary-400 mx-auto group-hover:border-primary-500 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] group-hover:scale-110 transition-all">
+                    <i data-feather="user"></i>
+                </div>
+                </a>
+                <p class="mt-3 font-medium">Karabo Mgwenya</p>
+                <p class="text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition">
+                    Tutor
+                </p>
+            </div>
+
+
+           
+
+            <!-- Repeat until you have 17 -->
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<script src="components/footer.js"></script>
+<devsoc-footer></devsoc-footer>
+
+<script>
+    feather.replace();
+</script>
+
+</body>
+</html>
+
+
+
