@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DevSoc | Events</title>
+<title>DevSoc | Events Calendar</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -12,12 +12,52 @@ tailwind.config = {
     theme: {
         extend: {
             colors: {
-                primary:{400:'#a78bfa',500:'#8b5cf6',600:'#7c3aed'},
-                dark:{900:'#0a0a0a',800:'#121212',700:'#1a1a1a'}
+                primary: {
+                    300: '#c4b5fd',
+                    400: '#a78bfa',
+                    500: '#8b5cf6',
+                    600: '#7c3aed',
+                },
+                secondary: {
+                    400: '#f472b6',
+                    500: '#ec4899',
+                },
+                accent: {
+                    400: '#2dd4bf',
+                    500: '#14b8a6',
+                },
+                dark: {
+                    900: '#0a0a0a',
+                    800: '#121212',
+                    700: '#1e1e1e',
+                    600: '#2d2d2d',
+                }
             },
-            fontFamily:{
-                mono:['"Fira Code"','monospace'],
-                sans:['"Inter"','system-ui']
+            fontFamily: {
+                mono: ['"Fira Code"', 'monospace'],
+                sans: ['"Inter"', 'system-ui'],
+                display: ['"Clash Display"', '"Inter"', 'sans-serif'],
+            },
+            animation: {
+                'float': 'float 6s ease-in-out infinite',
+                'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                'glow': 'glow 2s ease-in-out infinite alternate',
+                'gradient': 'gradient 8s linear infinite',
+                'spin-slow': 'spin 8s linear infinite',
+            },
+            keyframes: {
+                float: {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-20px)' },
+                },
+                glow: {
+                    '0%': { boxShadow: '0 0 20px rgba(139,92,246,0.3), 0 0 40px rgba(236,72,153,0.2)' },
+                    '100%': { boxShadow: '0 0 40px rgba(139,92,246,0.6), 0 0 60px rgba(236,72,153,0.4)' },
+                },
+                gradient: {
+                    '0%, 100%': { backgroundPosition: '0% 50%' },
+                    '50%': { backgroundPosition: '100% 50%' },
+                }
             }
         }
     }
@@ -25,124 +65,706 @@ tailwind.config = {
 </script>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/feather-icons"></script>
+
+<style>
+    /* Glass morphism effects */
+    .glass {
+        background: rgba(18, 18, 18, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .glass-card {
+        background: rgba(30, 30, 30, 0.6);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(139, 92, 246, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .glass-card:hover {
+        border-color: rgba(139, 92, 246, 0.4);
+        box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+        transform: translateY(-5px);
+    }
+
+    /* Gradient text */
+    .gradient-text {
+        background: linear-gradient(135deg, #a78bfa, #ec4899, #2dd4bf);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 300% 300%;
+        animation: gradient 6s ease infinite;
+    }
+
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Grid pattern */
+    .grid-pattern {
+        background-image: 
+            linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+        background-size: 50px 50px;
+    }
+
+    /* Calendar styles */
+    .calendar-day {
+        transition: all 0.2s ease;
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.875rem;
+        border-radius: 0.75rem;
+        cursor: default;
+    }
+
+    .calendar-day.event-day {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+        border: 1px solid rgba(139, 92, 246, 0.4);
+        color: white;
+        font-weight: 600;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .calendar-day.event-day::after {
+        content: '';
+        position: absolute;
+        bottom: 2px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: #ec4899;
+    }
+
+    .calendar-day.event-day:hover {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(236, 72, 153, 0.4));
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+    }
+
+    .calendar-day.other-month {
+        opacity: 0.3;
+    }
+
+    /* Timeline styles */
+    .timeline-dot {
+        transition: all 0.3s ease;
+    }
+
+    .timeline-dot:hover {
+        transform: scale(1.5);
+        box-shadow: 0 0 30px rgba(139, 92, 246, 0.8);
+    }
+
+    .event-card {
+        transition: all 0.3s ease;
+    }
+
+    .event-card:hover {
+        transform: translateX(10px);
+    }
+</style>
 </head>
 
-<body class="bg-dark-900 text-gray-100 font-sans overflow-x-hidden">
+<body class="bg-dark-900 text-gray-100 font-sans overflow-x-hidden relative">
 
-<!-- Navbar -->
-<script src="components/navbar.js"></script>
-<devsoc-navbar></devsoc-navbar>
-
-<!-- Header -->
-<section class="pt-32 pb-20 relative text-center">
-    <div class="absolute inset-0 bg-primary-600/10"></div>
-    <div class="relative z-10 max-w-4xl mx-auto px-4">
-        <h1 class="text-5xl md:text-6xl font-bold mb-6">
-            DevSoc <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-primary-600">
-                &lt;Events /&gt;
-            </span>
-        </h1>
-        <p class="text-gray-400 text-lg">
-            Workshops, hackathons, talks, and hands-on sessions hosted by DevSoc.
-        </p>
+    <!-- Animated Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-20 w-72 h-72 bg-primary-600/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute top-1/3 right-0 w-96 h-96 bg-secondary-500/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-0 left-1/4 w-80 h-80 bg-accent-500/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 4s;"></div>
+        <div class="absolute inset-0 grid-pattern opacity-30"></div>
     </div>
-</section>
 
-<!-- Events Timeline -->
-<section class="pb-32">
-<div class="max-w-5xl mx-auto px-4 relative">
-
-    <!-- Vertical Line -->
-    <div class="absolute left-4 top-0 bottom-0 w-px bg-primary-500/30 hidden sm:block"></div>
-
-    <div id="events-container" class="space-y-12"></div>
-
-</div>
-</section>
-
-<!-- CTA -->
-<section class="py-24 bg-dark-800/40 border-t border-dark-700">
-    <div class="max-w-4xl mx-auto text-center px-4">
-        <h2 class="text-4xl md:text-5xl font-bold mb-6">
-            Don’t miss the <span class="text-primary-500">next event</span>
-        </h2>
-        <p class="text-gray-400 mb-10">
-            Follow DevSoc and stay updated with upcoming workshops and hackathons.
-        </p>
-        <a href="index.html#join"
-           class="inline-flex items-center gap-2 px-8 py-4 bg-primary-600 rounded-lg font-semibold text-white hover:scale-105 transition">
-            Join DevSoc
-            <i data-feather="arrow-right"></i>
-        </a>
-    </div>
-</section>
-
-<!-- Footer -->
-<script src="components/footer.js"></script>
-<devsoc-footer></devsoc-footer>
-
-<script>
-feather.replace();
-
-/* EVENTS DATA */
-const events = [
-    {
-        title: "Intro to Web Development Workshop",
-        date: "March 2025",
-        type: "Workshop",
-        description: "A beginner-friendly workshop covering HTML, CSS, and basic JavaScript."
-    },
-    {
-        title: "Git & GitHub Bootcamp",
-        date: "April 2025",
-        type: "Bootcamp",
-        description: "Hands-on session teaching version control, collaboration, and GitHub workflows."
-    },
-    {
-        title: "DevSoc Hackathon",
-        date: "June 2025",
-        type: "Hackathon",
-        description: "24-hour team-based hackathon focused on solving real-world problems."
-    },
-    {
-        title: "AI & Machine Learning Talk",
-        date: "August 2025",
-        type: "Tech Talk",
-        description: "An introduction to AI concepts, use cases, and career paths in ML."
-    },
-    {
-        title: "Mobile App Development Session",
-        date: "October 2025",
-        type: "Workshop",
-        description: "Building mobile applications using modern frameworks and tools."
-    }
-];
-
-/* Render Events */
-const container = document.getElementById("events-container");
-
-events.forEach(event => {
-    const div = document.createElement("div");
-    div.className = "relative pl-10 sm:pl-16 group";
-    div.innerHTML = `
-        <div class="absolute left-2 top-4 w-4 h-4 rounded-full bg-primary-500 shadow-[0_0_15px_rgba(139,92,246,0.6)]"></div>
-
-        <div class="bg-dark-800 border border-dark-700 rounded-2xl p-6 
-                    group-hover:border-primary-500/50 
-                    group-hover:shadow-[0_0_30px_rgba(139,92,246,0.2)]
-                    transition-all">
-            <div class="flex flex-wrap items-center gap-3 mb-3">
-                <span class="text-sm font-mono text-primary-400">${event.type}</span>
-                <span class="text-xs text-gray-500">${event.date}</span>
+    <!-- Custom Header -->
+    <header class="fixed top-0 left-0 w-full z-50 glass border-b border-primary-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Left side: Hamburger + Logo -->
+                <div class="flex items-center gap-4">
+                    <!-- Hamburger Button -->
+                    <button id="menuToggle" class="w-12 h-12 rounded-xl bg-gradient-to-br from-dark-800 to-dark-700 border border-primary-500/30 text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all flex items-center justify-center group relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-secondary-500/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <i data-feather="menu" class="w-5 h-5 relative z-10"></i>
+                    </button>
+                    
+                    <!-- Logo -->
+                    <a href="index.html" class="flex items-center gap-3 group">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 p-[2px] group-hover:rotate-6 transition-transform">
+                            <div class="w-full h-full rounded-xl bg-dark-800 flex items-center justify-center">
+                                <span class="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">
+                                    &lt;/&gt;
+                                </span>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-display font-bold">
+                            <span class="gradient-text">DevSoc</span>
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Right side - Breadcrumb -->
+                <div class="hidden md:flex items-center gap-3">
+                    <span class="text-sm font-mono text-primary-400/60">✦ events ✦</span>
+                    <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                    <span class="text-xs text-gray-500">upcoming sessions</span>
+                </div>
             </div>
-            <h3 class="text-2xl font-semibold mb-2">${event.title}</h3>
-            <p class="text-gray-400 text-sm">${event.description}</p>
         </div>
-    `;
-    container.appendChild(div);
-});
-</script>
 
+        <!-- Dropdown Navigation Menu -->
+        <nav id="dropdownNav" class="hidden absolute top-full left-0 w-full glass border-t border-primary-500/20 shadow-2xl py-8 px-4">
+            <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+                <a href="events.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="calendar" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Events</span>
+                </a>
+                <a href="tutors.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="users" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Tutors</span>
+                </a>
+                <a href="lessons.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="book-open" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Lessons</span>
+                </a>
+                <a href="projects.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="code" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Projects</span>
+                </a>
+                <a href="leadership.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="award" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Leadership</span>
+                </a>
+                <a href="about.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="info" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">About</span>
+                </a>
+                <a href="contacts.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="mail" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Contacts</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Spacer for fixed header -->
+    <div class="h-16 md:h-20"></div>
+
+    <!-- Header Section - Redesigned -->
+    <section class="pt-20 pb-16 relative text-center overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-20 right-20 w-32 h-32 border border-primary-500/20 rounded-full animate-spin-slow"></div>
+        <div class="absolute bottom-20 left-20 w-40 h-40 border border-secondary-500/20 rounded-full animate-spin-slow" style="animation-direction: reverse;"></div>
+        
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-900/10 via-dark-900 to-secondary-900/10"></div>
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary-500 to-secondary-500 to-transparent"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-4">
+            <!-- Animated badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary-500/30 mb-8 animate-float">
+                <span class="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
+                <span class="text-primary-400 text-sm font-mono">✦ UPCOMING EVENTS ✦</span>
+            </div>
+
+            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
+                <span class="gradient-text">DevSoc</span>
+                <span class="block text-3xl md:text-4xl text-gray-400 mt-2 font-light">
+                    &lt;events calendar /&gt;
+                </span>
+            </h1>
+
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                Workshops, hackathons, talks, and hands-on sessions hosted by DevSoc.
+                <span class="block text-primary-400/70 text-sm mt-2">mark your calendar • learn • build • connect</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Calendar Section -->
+    <section class="pb-16">
+        <div class="max-w-6xl mx-auto px-4">
+            <!-- Month Selector -->
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-display font-bold">
+                    <span class="gradient-text">March 2025</span>
+                </h2>
+                <div class="flex gap-2">
+                    <button class="w-10 h-10 rounded-xl glass border border-primary-500/30 text-gray-400 hover:text-primary-400 hover:border-primary-400 transition-all">
+                        <i data-feather="chevron-left" class="w-5 h-5 mx-auto"></i>
+                    </button>
+                    <button class="w-10 h-10 rounded-xl glass border border-primary-500/30 text-gray-400 hover:text-primary-400 hover:border-primary-400 transition-all">
+                        <i data-feather="chevron-right" class="w-5 h-5 mx-auto"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Calendar Grid -->
+            <div class="glass-card rounded-2xl p-6 border border-primary-500/20 mb-12">
+                <!-- Weekday headers -->
+                <div class="grid grid-cols-7 gap-2 mb-4">
+                    <div class="text-center text-sm font-mono text-primary-400">MON</div>
+                    <div class="text-center text-sm font-mono text-primary-400">TUE</div>
+                    <div class="text-center text-sm font-mono text-primary-400">WED</div>
+                    <div class="text-center text-sm font-mono text-primary-400">THU</div>
+                    <div class="text-center text-sm font-mono text-primary-400">FRI</div>
+                    <div class="text-center text-sm font-mono text-primary-400">SAT</div>
+                    <div class="text-center text-sm font-mono text-primary-400">SUN</div>
+                </div>
+
+                <!-- Calendar days -->
+                <div class="grid grid-cols-7 gap-2">
+                    <!-- Previous month days -->
+                    <div class="calendar-day other-month text-gray-600">24</div>
+                    <div class="calendar-day other-month text-gray-600">25</div>
+                    <div class="calendar-day other-month text-gray-600">26</div>
+                    <div class="calendar-day other-month text-gray-600">27</div>
+                    <div class="calendar-day other-month text-gray-600">28</div>
+                    
+                    <!-- March 2025 days -->
+                    <div class="calendar-day">1</div>
+                    <div class="calendar-day">2</div>
+                    <div class="calendar-day">3</div>
+                    <div class="calendar-day">4</div>
+                    <div class="calendar-day">5</div>
+                    <div class="calendar-day">6</div>
+                    <div class="calendar-day">7</div>
+                    <div class="calendar-day">8</div>
+                    <div class="calendar-day">9</div>
+                    <div class="calendar-day">10</div>
+                    <div class="calendar-day event-day" title="Intro to Web Development Workshop">11</div>
+                    <div class="calendar-day">12</div>
+                    <div class="calendar-day">13</div>
+                    <div class="calendar-day">14</div>
+                    <div class="calendar-day">15</div>
+                    <div class="calendar-day">16</div>
+                    <div class="calendar-day">17</div>
+                    <div class="calendar-day">18</div>
+                    <div class="calendar-day">19</div>
+                    <div class="calendar-day">20</div>
+                    <div class="calendar-day">21</div>
+                    <div class="calendar-day">22</div>
+                    <div class="calendar-day">23</div>
+                    <div class="calendar-day">24</div>
+                    <div class="calendar-day">25</div>
+                    <div class="calendar-day">26</div>
+                    <div class="calendar-day">27</div>
+                    <div class="calendar-day">28</div>
+                    <div class="calendar-day">29</div>
+                    <div class="calendar-day">30</div>
+                    <div class="calendar-day">31</div>
+                    
+                    <!-- Next month days -->
+                    <div class="calendar-day other-month text-gray-600">1</div>
+                    <div class="calendar-day other-month text-gray-600">2</div>
+                    <div class="calendar-day other-month text-gray-600">3</div>
+                    <div class="calendar-day other-month text-gray-600">4</div>
+                    <div class="calendar-day other-month text-gray-600">5</div>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="flex items-center justify-center gap-6 mb-12">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-primary-500"></div>
+                    <span class="text-sm text-gray-400">Event day</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-gray-600"></div>
+                    <span class="text-sm text-gray-400">No event</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Timeline - Redesigned -->
+    <section class="pb-32 relative">
+        <div class="max-w-5xl mx-auto px-4 relative">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">
+                    <span class="gradient-text">Upcoming Events</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 mx-auto"></div>
+            </div>
+
+            <!-- Vertical Line (animated) -->
+            <div class="absolute left-4 top-20 bottom-0 w-px bg-gradient-to-b from-primary-500/50 via-secondary-500/50 to-transparent hidden sm:block"></div>
+
+            <div id="events-container" class="space-y-12"></div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events Cards (Additional) -->
+    <section class="pb-20">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-2xl font-display font-bold mb-8 text-center">
+                <span class="gradient-text">More Events This Semester</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- April Event -->
+                <div class="glass-card rounded-2xl p-6 border border-primary-500/20 hover:border-primary-400/50 transition-all group">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center">
+                            <i data-feather="git-branch" class="w-5 h-5 text-primary-400"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-mono text-primary-400">APR 2025</span>
+                            <span class="text-xs text-gray-500 ml-2">Week 2</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-display font-semibold mb-2">Git & GitHub Bootcamp</h3>
+                    <p class="text-gray-400 text-sm mb-4">Hands-on session teaching version control, collaboration, and GitHub workflows.</p>
+                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                        <i data-feather="map-pin" class="w-3 h-3"></i>
+                        <span>Computer Science Lab</span>
+                    </div>
+                </div>
+
+                <!-- June Event -->
+                <div class="glass-card rounded-2xl p-6 border border-primary-500/20 hover:border-primary-400/50 transition-all group">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center">
+                            <i data-feather="terminal" class="w-5 h-5 text-primary-400"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-mono text-primary-400">JUN 2025</span>
+                            <span class="text-xs text-gray-500 ml-2">15-16</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-display font-semibold mb-2">DevSoc Hackathon</h3>
+                    <p class="text-gray-400 text-sm mb-4">24-hour team-based hackathon focused on solving real-world problems.</p>
+                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                        <i data-feather="map-pin" class="w-3 h-3"></i>
+                        <span>Innovation Hub</span>
+                    </div>
+                </div>
+
+                <!-- August Event -->
+                <div class="glass-card rounded-2xl p-6 border border-primary-500/20 hover:border-primary-400/50 transition-all group">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center">
+                            <i data-feather="cpu" class="w-5 h-5 text-primary-400"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-mono text-primary-400">AUG 2025</span>
+                            <span class="text-xs text-gray-500 ml-2">Week 3</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-display font-semibold mb-2">AI & Machine Learning Talk</h3>
+                    <p class="text-gray-400 text-sm mb-4">An introduction to AI concepts, use cases, and career paths in ML.</p>
+                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                        <i data-feather="map-pin" class="w-3 h-3"></i>
+                        <span>Online / Zoom</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA - Redesigned -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary-600/5 to-secondary-600/5"></div>
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-1 bg-gradient-to-r from-transparent via-primary-500 to-secondary-500 to-transparent"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto text-center px-4 relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary-500/30 text-primary-400 text-sm font-mono mb-6 animate-float">
+                <i data-feather="calendar" class="w-4 h-4"></i>
+                <span>✦ DON'T MISS OUT ✦</span>
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">
+                <span class="gradient-text">Don't miss the</span>
+                <span class="block text-white">next event</span>
+            </h2>
+            
+            <p class="text-gray-300 text-lg mb-10 max-w-2xl mx-auto">
+                Follow DevSoc and stay updated with upcoming workshops, hackathons, and tech talks.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="index.html#join" class="group relative px-8 py-4 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl font-semibold text-white overflow-hidden transition-all hover:shadow-[0_0_40px_rgba(139,92,246,0.6)] flex items-center justify-center gap-2">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    <i data-feather="users" class="w-5 h-5 relative z-10"></i>
+                    <span class="relative z-10">Join DevSoc</span>
+                </a>
+                <a href="#" class="group px-8 py-4 glass border border-primary-500/30 rounded-xl font-semibold text-gray-300 hover:text-white hover:border-primary-400 transition-all flex items-center justify-center gap-2 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="bell" class="w-5 h-5 relative z-10"></i>
+                    <span class="relative z-10">Get Reminders</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Footer -->
+    <footer class="relative mt-16 border-t border-primary-500/30 bg-gradient-to-b from-dark-900 to-dark-800 pt-16 pb-8 overflow-hidden">
+        <div class="absolute top-0 left-1/4 w-64 h-64 bg-primary-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-secondary-500/5 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
+                <!-- Left Section - Society Info -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 p-[2px]">
+                            <div class="w-full h-full rounded-xl bg-dark-800 flex items-center justify-center">
+                                <span class="text-xl font-bold gradient-text">&lt;/&gt;</span>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-display font-bold gradient-text">DevSoc</span>
+                    </div>
+                    
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Rhodes University's Developers' Society - building the next generation of tech innovators through collaboration, learning, and real-world projects.
+                    </p>
+                    
+                    <div class="flex gap-3 pt-2">
+                        <a href="#" class="w-10 h-10 rounded-full glass border border-primary-500/30 flex items-center justify-center text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all hover:scale-110">
+                            <i data-feather="github" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full glass border border-primary-500/30 flex items-center justify-center text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all hover:scale-110">
+                            <i data-feather="twitter" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full glass border border-primary-500/30 flex items-center justify-center text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all hover:scale-110">
+                            <i data-feather="linkedin" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full glass border border-primary-500/30 flex items-center justify-center text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all hover:scale-110">
+                            <i data-feather="instagram" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Middle Section - Quick Links -->
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-sm font-mono text-primary-400 mb-4 tracking-wider">✦ QUICK LINKS</h4>
+                        <ul class="space-y-3">
+                            <li><a href="events.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Events</a></li>
+                            <li><a href="tutors.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Tutors</a></li>
+                            <li><a href="lessons.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Lessons</a></li>
+                            <li><a href="projects.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Projects</a></li>
+                            <li><a href="leadership.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Leadership</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-mono text-primary-400 mb-4 tracking-wider">✦ RESOURCES</h4>
+                        <ul class="space-y-3">
+                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-secondary-500 rounded-full group-hover:w-2 transition-all"></span>Code Library</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-secondary-500 rounded-full group-hover:w-2 transition-all"></span>Documentation</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-secondary-500 rounded-full group-hover:w-2 transition-all"></span>Workshops</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-secondary-500 rounded-full group-hover:w-2 transition-all"></span>Blog</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right Section - WhatsApp Barcode -->
+                <div class="lg:justify-self-end">
+                    <div class="group relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
+                        <div class="relative glass-card rounded-2xl p-6 border-2 border-primary-500/30 hover:border-primary-400/60 transition-all">
+                            <div class="text-center">
+                                <h4 class="text-lg font-display font-semibold gradient-text mb-3">Join WhatsApp Group</h4>
+                                
+                                <!-- Animated Barcode -->
+                                <div class="relative w-40 h-40 mx-auto mb-4">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl animate-pulse-slow opacity-20"></div>
+                                    <div class="relative w-full h-full bg-dark-800 rounded-xl border-2 border-primary-500/30 p-3 group-hover:scale-105 transition-transform duration-300">
+                                        <div class="w-full h-full flex flex-col items-center justify-center">
+                                            <div class="w-full space-y-1.5">
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                                <div class="h-2 bg-gradient-to-r from-primary-400 to-secondary-400 w-3/4 mx-auto rounded"></div>
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                                <div class="h-3 bg-gradient-to-r from-primary-400 to-secondary-400 w-5/6 mx-auto rounded"></div>
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                                <div class="h-2.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-2/3 mx-auto rounded"></div>
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                                <div class="h-4 bg-gradient-to-r from-primary-400 to-secondary-400 w-4/5 mx-auto rounded"></div>
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                            </div>
+                                            <span class="text-[8px] font-mono text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400 mt-2">✦ SCAN ME ✦</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Join Now Button -->
+                                <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl font-semibold text-white transition-all hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] group-hover:scale-105">
+                                    <i data-feather="message-circle" class="w-4 h-4"></i>
+                                    Join Now
+                                </a>
+                                <p class="text-xs text-gray-500 mt-3">✨ Connect with 150+ developers ✨</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="relative pt-8 mt-8 border-t border-primary-500/20">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-500">
+                        © 2026 DevSoc — <span class="gradient-text">Developer Society</span>
+                    </p>
+                    <div class="flex gap-8">
+                        <a href="#" class="text-xs text-gray-500 hover:text-primary-400 transition-colors">Privacy</a>
+                        <a href="#" class="text-xs text-gray-500 hover:text-primary-400 transition-colors">Terms</a>
+                        <a href="#" class="text-xs text-gray-500 hover:text-primary-400 transition-colors">Code of Conduct</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    feather.replace();
+
+    /* EVENTS DATA */
+    const events = [
+        {
+            title: "Intro to Web Development Workshop",
+            date: "March 11, 2025",
+            type: "Workshop",
+            description: "A beginner-friendly workshop covering HTML, CSS, and basic JavaScript.",
+            icon: "code"
+        },
+        {
+            title: "Git & GitHub Bootcamp",
+            date: "April 2025",
+            type: "Bootcamp",
+            description: "Hands-on session teaching version control, collaboration, and GitHub workflows.",
+            icon: "git-branch"
+        },
+        {
+            title: "DevSoc Hackathon",
+            date: "June 15-16, 2025",
+            type: "Hackathon",
+            description: "24-hour team-based hackathon focused on solving real-world problems.",
+            icon: "terminal"
+        },
+        {
+            title: "AI & Machine Learning Talk",
+            date: "August 2025",
+            type: "Tech Talk",
+            description: "An introduction to AI concepts, use cases, and career paths in ML.",
+            icon: "cpu"
+        },
+        {
+            title: "Mobile App Development Session",
+            date: "October 2025",
+            type: "Workshop",
+            description: "Building mobile applications using modern frameworks and tools.",
+            icon: "smartphone"
+        }
+    ];
+
+    /* Render Events Timeline */
+    const container = document.getElementById("events-container");
+
+    events.forEach((event, index) => {
+        const div = document.createElement("div");
+        div.className = "relative pl-10 sm:pl-16 group";
+        
+        // Different colors for each event dot
+        const colors = ['primary', 'secondary', 'accent', 'primary', 'secondary'];
+        const color = colors[index % colors.length];
+        
+        div.innerHTML = `
+            <div class="absolute left-2 top-6 w-5 h-5 rounded-full bg-${color}-500 shadow-[0_0_20px_rgba(139,92,246,0.6)] timeline-dot z-10"></div>
+
+            <div class="event-card glass-card rounded-2xl p-6 border border-${color}-500/20 group-hover:border-${color}-400/50 group-hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all">
+                <div class="flex flex-wrap items-center gap-3 mb-3">
+                    <span class="text-sm font-mono text-${color}-400 flex items-center gap-1">
+                        <i data-feather="${event.icon}" class="w-4 h-4"></i>
+                        ${event.type}
+                    </span>
+                    <span class="text-xs text-gray-500 flex items-center gap-1">
+                        <i data-feather="calendar" class="w-3 h-3"></i>
+                        ${event.date}
+                    </span>
+                </div>
+                <h3 class="text-2xl font-display font-semibold mb-2 text-white">${event.title}</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">${event.description}</p>
+                
+                <div class="mt-4 flex items-center gap-4 text-xs text-gray-500">
+                    <span class="flex items-center gap-1">
+                        <i data-feather="clock" class="w-3 h-3"></i>
+                        2:00 PM - 4:00 PM
+                    </span>
+                    <span class="flex items-center gap-1">
+                        <i data-feather="map-pin" class="w-3 h-3"></i>
+                        Computer Science Lab
+                    </span>
+                </div>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+
+    // Re-initialize feather icons for dynamically added content
+    feather.replace();
+
+    // Hamburger menu functionality
+    const menuToggle = document.getElementById('menuToggle');
+    const dropdown = document.getElementById('dropdownNav');
+
+    function closeDropdown() {
+        dropdown.classList.add('hidden');
+    }
+
+    function openDropdown() {
+        dropdown.classList.remove('hidden');
+    }
+
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (dropdown.classList.contains('hidden')) {
+            openDropdown();
+        } else {
+            closeDropdown();
+        }
+    });
+
+    // Close when clicking on nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeDropdown();
+        });
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (event) => {
+        if (!dropdown.classList.contains('hidden') && 
+            !dropdown.contains(event.target) && 
+            !menuToggle.contains(event.target)) {
+            closeDropdown();
+        }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !dropdown.classList.contains('hidden')) {
+            closeDropdown();
+        }
+    });
+    </script>
 </body>
 </html>
