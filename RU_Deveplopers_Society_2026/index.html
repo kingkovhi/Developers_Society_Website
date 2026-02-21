@@ -15,32 +15,39 @@
                 extend: {
                     colors: {
                         primary: {
-                            50: '#f5f3ff',
-                            100: '#ede9fe',
-                            200: '#ddd6fe',
                             300: '#c4b5fd',
                             400: '#a78bfa',
                             500: '#8b5cf6',
                             600: '#7c3aed',
                             700: '#6d28d9',
-                            800: '#5b21b6',
-                            900: '#4c1d95',
+                        },
+                        secondary: {
+                            400: '#f472b6',
+                            500: '#ec4899',
+                        },
+                        accent: {
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
                         },
                         dark: {
                             900: '#0a0a0a',
                             800: '#121212',
-                            700: '#1a1a1a',
-                            600: '#2a2a2a',
+                            700: '#1e1e1e',
+                            600: '#2d2d2d',
                         }
                     },
                     fontFamily: {
                         mono: ['"Fira Code"', 'monospace'],
                         sans: ['"Inter"', 'system-ui', 'sans-serif'],
+                        display: ['"Clash Display"', '"Inter"', 'sans-serif'],
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'glow': 'glow 2s ease-in-out infinite alternate',
+                        'gradient': 'gradient 8s linear infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                        'bounce-slow': 'bounce 3s infinite',
                     },
                     keyframes: {
                         float: {
@@ -48,20 +55,72 @@
                             '50%': { transform: 'translateY(-20px)' },
                         },
                         glow: {
-                            '0%': { boxShadow: '0 0 5px #8b5cf6, 0 0 10px #8b5cf6, 0 0 15px #8b5cf6' },
-                            '100%': { boxShadow: '0 0 10px #8b5cf6, 0 0 20px #8b5cf6, 0 0 30px #8b5cf6' },
+                            '0%': { boxShadow: '0 0 20px rgba(139,92,246,0.3), 0 0 40px rgba(236,72,153,0.2)' },
+                            '100%': { boxShadow: '0 0 40px rgba(139,92,246,0.6), 0 0 60px rgba(236,72,153,0.4)' },
+                        },
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
                         }
                     }
                 }
             }
         }
     </script>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
+
     <style>
+        /* Glass morphism effects */
+        .glass {
+            background: rgba(18, 18, 18, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #a78bfa, #ec4899, #2dd4bf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 300% 300%;
+            animation: gradient 6s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Grid pattern */
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
         /* Dropdown menu styles */
         #dropdownNav {
-            transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+            transition: opacity 0.3s ease-in-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform-origin: top;
         }
         #dropdownNav:not(.hidden) {
@@ -73,95 +132,153 @@
             transform: scaleY(0);
             pointer-events: none;
         }
+
+        /* Counter animation */
+        .counter {
+            animation: countUp 2s ease-out;
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Particle animation */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(139, 92, 246, 0.3);
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
     </style>
 </head>
-<body class="bg-dark-900 text-gray-100 font-sans overflow-x-hidden selection:bg-primary-500 selection:text-white">
+<body class="bg-dark-900 text-gray-100 font-sans overflow-x-hidden selection:bg-primary-500 selection:text-white relative">
 
-    <!-- Header with Hamburger and Logo -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-dark-900/80 backdrop-blur-md border-b border-dark-700">
+    <!-- Animated Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-20 w-72 h-72 bg-primary-600/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute top-1/3 right-0 w-96 h-96 bg-secondary-500/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-0 left-1/4 w-80 h-80 bg-accent-500/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 4s;"></div>
+        <div class="absolute inset-0 grid-pattern opacity-30"></div>
+    </div>
+
+    <!-- Header with Hamburger and Logo (Enhanced) -->
+    <header class="fixed top-0 left-0 w-full z-50 glass border-b border-primary-500/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 md:h-20">
                 <!-- Left side: Hamburger + Logo -->
-                <div class="flex items-center gap-3">
-                    <!-- Hamburger Button -->
-                    <button id="menuToggle" class="w-10 h-10 rounded-lg bg-dark-800 border border-dark-600 text-gray-300 hover:border-primary-500 hover:text-primary-400 transition-all flex items-center justify-center" aria-label="menu">
-                        <i data-feather="menu" class="w-5 h-5"></i>
+                <div class="flex items-center gap-4">
+                    <!-- Hamburger Button - Enhanced -->
+                    <button id="menuToggle" class="w-12 h-12 rounded-xl bg-gradient-to-br from-dark-800 to-dark-700 border border-primary-500/30 text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all flex items-center justify-center group relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-secondary-500/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <i data-feather="menu" class="w-5 h-5 relative z-10"></i>
                     </button>
                     
-                    <!-- Logo -->
-                    <a href="#" class="flex items-center gap-2">
-                        <span class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-primary-600">
-                            DevSoc
-                        </span>
-                        <span class="text-sm font-mono text-primary-500 hidden sm:inline-block">
-                            &lt;dev/&gt;
+                    <!-- Logo - Enhanced -->
+                    <a href="#" class="flex items-center gap-3 group">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 p-[2px] group-hover:rotate-6 transition-transform">
+                            <div class="w-full h-full rounded-xl bg-dark-800 flex items-center justify-center">
+                                <span class="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">
+                                    &lt;/&gt;
+                                </span>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-display font-bold">
+                            <span class="gradient-text">DevSoc</span>
                         </span>
                     </a>
                 </div>
                 
-                <!-- Right side (empty for now) -->
-                <div class="flex items-center gap-2">
-                    <!-- Placeholder for future content -->
+                <!-- Right side - Status -->
+                <div class="hidden md:flex items-center gap-3">
+                    <span class="text-sm font-mono text-primary-400/60">✦ community ✦</span>
+                    <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                    <span class="text-xs text-gray-500">80+ developers</span>
                 </div>
             </div>
         </div>
 
-        <!-- Dropdown Navigation Menu with Leadership added -->
-        <nav id="dropdownNav" class="hidden absolute top-full left-0 w-full bg-dark-800/95 backdrop-blur-xl border-t border-dark-700 shadow-2xl py-6 px-4">
+        <!-- Dropdown Navigation Menu - Enhanced -->
+        <nav id="dropdownNav" class="hidden absolute top-full left-0 w-full glass border-t border-primary-500/20 shadow-2xl py-8 px-4">
             <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-                <a href="#events" class="nav-link flex flex-col items-center p-4 rounded-xl bg-dark-700/30 border border-dark-600/50 hover:border-primary-500/60 hover:bg-primary-500/5 transition-all group">
-                    <i data-feather="calendar" class="w-6 h-6 text-primary-400 mb-2 group-hover:scale-110"></i>
-                    <span class="font-mono text-sm font-medium">Events</span>
+                <a href="events.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="calendar" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Events</span>
+                    <span class="block text-xs text-gray-500 mt-1">12 upcoming</span>
                 </a>
-                <a href="#tutors" class="nav-link flex flex-col items-center p-4 rounded-xl bg-dark-700/30 border border-dark-600/50 hover:border-primary-500/60 hover:bg-primary-500/5 transition-all group">
-                    <i data-feather="users" class="w-6 h-6 text-primary-400 mb-2 group-hover:scale-110"></i>
-                    <span class="font-mono text-sm font-medium">Tutors</span>
+                <a href="Developers.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="users" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Tutors</span>
+                    <span class="block text-xs text-gray-500 mt-1">12 mentors</span>
                 </a>
-                <a href="#lessons" class="nav-link flex flex-col items-center p-4 rounded-xl bg-dark-700/30 border border-dark-600/50 hover:border-primary-500/60 hover:bg-primary-500/5 transition-all group">
-                    <i data-feather="book-open" class="w-6 h-6 text-primary-400 mb-2 group-hover:scale-110"></i>
-                    <span class="font-mono text-sm font-medium">Lessons</span>
+                <a href="Lessons.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="book-open" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Lessons</span>
+                    <span class="block text-xs text-gray-500 mt-1">Weekly Saterday sessions</span>
                 </a>
-                <a href="#projects" class="nav-link flex flex-col items-center p-4 rounded-xl bg-dark-700/30 border border-dark-600/50 hover:border-primary-500/60 hover:bg-primary-500/5 transition-all group">
-                    <i data-feather="code" class="w-6 h-6 text-primary-400 mb-2 group-hover:scale-110"></i>
-                    <span class="font-mono text-sm font-medium">Projects</span>
+                <a href="Projects.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="code" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Projects</span>
+                    <span class="block text-xs text-gray-500 mt-1">Soon..</span>
                 </a>
-                <a href="#leadership" class="nav-link flex flex-col items-center p-4 rounded-xl bg-dark-700/30 border border-dark-600/50 hover:border-primary-500/60 hover:bg-primary-500/5 transition-all group">
-                    <i data-feather="award" class="w-6 h-6 text-primary-400 mb-2 group-hover:scale-110"></i>
-                    <span class="font-mono text-sm font-medium">Leadership</span>
+                <a href="members.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="award" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Leadership</span>
+                    <span class="block text-xs text-gray-500 mt-1">the team</span>
                 </a>
-                <a href="#about" class="nav-link flex flex-col items-center p-4 rounded-xl bg-dark-700/30 border border-dark-600/50 hover:border-primary-500/60 hover:bg-primary-500/5 transition-all group">
-                    <i data-feather="info" class="w-6 h-6 text-primary-400 mb-2 group-hover:scale-110"></i>
-                    <span class="font-mono text-sm font-medium">About</span>
+                <a href="About.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="info" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">About</span>
+                    <span class="block text-xs text-gray-500 mt-1">our story</span>
                 </a>
-                <a href="#contacts" class="nav-link flex flex-col items-center p-4 rounded-xl bg-dark-700/30 border border-dark-600/50 hover:border-primary-500/60 hover:bg-primary-500/5 transition-all group">
-                    <i data-feather="mail" class="w-6 h-6 text-primary-400 mb-2 group-hover:scale-110"></i>
-                    <span class="font-mono text-sm font-medium">Contacts</span>
+                <a href="Contact.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="mail" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Contacts</span>
+                    <span class="block text-xs text-gray-500 mt-1">get in touch</span>
                 </a>
             </div>
-            <p class="text-center text-xs text-gray-600 mt-4 font-mono">click anywhere outside to close ✕</p>
+            <p class="text-center text-xs text-gray-600 mt-4 font-mono">✦ close ✦</p>
         </nav>
     </header>
 
     <!-- Spacer for fixed header -->
     <div class="h-16 md:h-20"></div>
 
-    <!-- Hero Section -->
+    <!-- Hero Section - Enhanced -->
     <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <!-- Animated Background -->
-        <div id="particles-container" class="absolute inset-0 z-0"></div>
+        <!-- Animated Particles (simulated) -->
+        <div id="particles-container" class="absolute inset-0 z-0">
+            <div class="particle w-1 h-1 bg-primary-400 left-1/4 top-1/3"></div>
+            <div class="particle w-2 h-2 bg-secondary-400 left-2/3 top-1/2"></div>
+            <div class="particle w-1.5 h-1.5 bg-accent-400 left-1/2 top-3/4"></div>
+        </div>
         
-        <!-- Gradient Orbs -->
+        <!-- Gradient Orbs - Enhanced -->
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-600/20 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary-400/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-accent-400/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 4s;"></div>
+
+        <!-- Decorative Rings -->
+        <div class="absolute top-20 right-20 w-32 h-32 border border-primary-500/20 rounded-full animate-spin-slow"></div>
+        <div class="absolute bottom-20 left-20 w-40 h-40 border border-secondary-500/20 rounded-full animate-spin-slow" style="animation-direction: reverse;"></div>
 
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-dark-800 border border-primary-500/30 text-primary-400 text-sm font-mono mb-8">
+            <!-- Animated Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary-500/30 text-primary-400 text-sm font-mono mb-8 animate-float">
                 <span class="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
-                <span>Welcome to the Developers Hub</span>
+                <span>✦ WELCOME TO THE DEVELOPERS HUB ✦</span>
             </div>
 
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
-                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-white via-primary-400 to-primary-600">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-6 tracking-tight">
+                <span class="block gradient-text">
                     DevSoc
                 </span>
                 <span class="block text-2xl md:text-4xl lg:text-5xl font-light text-gray-400 mt-4 font-mono">
@@ -169,78 +286,83 @@
                 </span>
             </h1>
 
-            <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 mb-10 leading-relaxed">
-                Rhodes University's Developers' Society is a student-led society that is dedicated to fulfilling the gap between academic learning and real-life 
-                tech industry practices. The society focuses on building technical skills and strengthening problem-solving abilities.
+            <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-300 mb-10 leading-relaxed">
+                Rhodes University's Developers' Society is a student-led society dedicated to bridging the gap between academic learning and real-life tech industry practices.
+                <span class="block text-primary-400/70 text-sm mt-2">build skills • solve problems • innovate together</span>
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="#projects" class="group relative px-8 py-4 bg-primary-600 rounded-lg font-semibold text-white overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(139,92,246,0.5)]">
-                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600 to-purple-600 transition-transform group-hover:scale-110"></div>
+                <a href="Projects.html" class="group relative px-8 py-4 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl font-semibold text-white overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(139,92,246,0.6)]">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                     <span class="relative flex items-center gap-2">
                         Explore Projects
                         <i data-feather="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
                     </span>
                 </a>
-                <a href="#join" class="px-8 py-4 border border-dark-600 rounded-lg font-semibold text-gray-300 hover:border-primary-500 hover:text-primary-400 transition-all hover:bg-primary-500/10 flex items-center gap-2">
-                    <i data-feather="users" class="w-5 h-5"></i>
-                    Join Community
+                <a href="#join" class="group px-8 py-4 glass border border-primary-500/30 rounded-xl font-semibold text-gray-300 hover:text-white hover:border-primary-400 transition-all hover:bg-primary-500/10 flex items-center gap-2 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="users" class="w-5 h-5 relative z-10"></i>
+                    <span class="relative z-10">Join Community</span>
                 </a>
             </div>
 
-            <!-- Stats -->
-            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-                <div class="p-6 rounded-2xl bg-dark-800/50 border border-dark-700 backdrop-blur-sm hover:border-primary-500/30 transition-colors">
-                    <div class="text-3xl md:text-4xl font-bold text-primary-400 font-mono counter" data-target="150">21</div>
-                    <div class="text-sm text-gray-500 mt-1">Members</div>
+            <!-- Stats - Enhanced -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="glass-card rounded-2xl p-6 border border-primary-500/20 hover:border-primary-400/40 transition-all group">
+                    <div class="text-3xl md:text-4xl font-bold font-mono gradient-text counter" data-target="150">80+</div>
+                    <div class="text-sm text-gray-500 mt-1 group-hover:text-primary-400 transition-colors">Members</div>
                 </div>
-                <div class="p-6 rounded-2xl bg-dark-800/50 border border-dark-700 backdrop-blur-sm hover:border-primary-500/30 transition-colors">
-                    <div class="text-3xl md:text-4xl font-bold text-primary-400 font-mono counter" data-target="45">7</div>
-                    <div class="text-sm text-gray-500 mt-1">Projects</div>
+                <div class="glass-card rounded-2xl p-6 border border-primary-500/20 hover:border-primary-400/40 transition-all group">
+                    <div class="text-3xl md:text-4xl font-bold font-mono gradient-text counter" data-target="45">++</div>
+                    <div class="text-sm text-gray-500 mt-1 group-hover:text-primary-400 transition-colors">Projects</div>
                 </div>
-                <div class="p-6 rounded-2xl bg-dark-800/50 border border-dark-700 backdrop-blur-sm hover:border-primary-500/30 transition-colors">
-                    <div class="text-3xl md:text-4xl font-bold text-primary-400 font-mono counter" data-target="12">1</div>
-                    <div class="text-sm text-gray-500 mt-1">Events</div>
+                <div class="glass-card rounded-2xl p-6 border border-primary-500/20 hover:border-primary-400/40 transition-all group">
+                    <div class="text-3xl md:text-4xl font-bold font-mono gradient-text counter" data-target="12">2+</div>
+                    <div class="text-sm text-gray-500 mt-1 group-hover:text-primary-400 transition-colors">Events</div>
                 </div>
-                <div class="p-6 rounded-2xl bg-dark-800/50 border border-dark-700 backdrop-blur-sm hover:border-primary-500/30 transition-colors">
-                    <div class="text-3xl md:text-4xl font-bold text-primary-400 font-mono counter" data-target="8">0</div>
-                    <div class="text-sm text-gray-500 mt-1">Awards</div>
+                <div class="glass-card rounded-2xl p-6 border border-primary-500/20 hover:border-primary-400/40 transition-all group">
+                    <div class="text-3xl md:text-4xl font-bold font-mono gradient-text counter" data-target="8">..</div>
+                    <div class="text-sm text-gray-500 mt-1 group-hover:text-primary-400 transition-colors">Awards</div>
                 </div>
             </div>
         </div>
 
-        <!-- Scroll Indicator -->
+        <!-- Scroll Indicator - Enhanced -->
         <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <i data-feather="chevron-down" class="w-6 h-6 text-primary-500"></i>
+            <div class="w-6 h-10 rounded-full border border-primary-500/30 flex items-start justify-center p-2">
+                <div class="w-1 h-2 bg-primary-500 rounded-full animate-pulse"></div>
+            </div>
         </div>
     </section>
 
-    <!-- Our Mission and Vision Section -->
+    <!-- Our Mission and Vision Section - Enhanced -->
     <section id="mission-vision" class="py-24 relative overflow-hidden">
         <!-- Background decoration -->
         <div class="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800/50 to-dark-900"></div>
         <div class="absolute top-0 right-0 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-secondary-500/10 rounded-full blur-3xl"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-16">
-                <h2 class="text-sm font-mono text-primary-500 uppercase tracking-wider mb-4">Our Foundation</h2>
-                <h3 class="text-4xl md:text-5xl font-bold mb-6">Mission & <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-purple-600">Vision</span></h3>
-                <div class="w-24 h-1 bg-gradient-to-r from-primary-500 to-purple-600 mx-auto"></div>
+                <h2 class="text-sm font-mono text-primary-400 uppercase tracking-wider mb-4">✦ Our Foundation ✦</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold mb-6">
+                    <span class="gradient-text">Mission & Vision</span>
+                </h3>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 mx-auto"></div>
             </div>
 
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
-                <!-- Mission Card -->
+                <!-- Mission Card - Enhanced -->
                 <div class="group relative">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-primary-600 to-purple-600 rounded-2xl opacity-20 group-hover:opacity-30 blur transition duration-500"></div>
-                    <div class="relative bg-dark-800/90 backdrop-blur-sm rounded-2xl p-8 border border-dark-700 h-full">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-2xl opacity-20 group-hover:opacity-30 blur transition duration-500"></div>
+                    <div class="relative glass-card rounded-2xl p-8 border border-primary-500/20 h-full">
                         <div class="flex items-center gap-4 mb-6">
-                            <div class="w-16 h-16 rounded-2xl bg-primary-500/20 flex items-center justify-center">
-                                <i data-feather="target" class="w-8 h-8 text-primary-500"></i>
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center">
+                                <i data-feather="target" class="w-8 h-8 text-primary-400"></i>
                             </div>
                             <div>
                                 <span class="text-sm font-mono text-primary-400">01</span>
-                                <h4 class="text-3xl font-bold text-white">Mission</h4>
+                                <h4 class="text-3xl font-display font-bold gradient-text">Mission</h4>
                             </div>
                         </div>
                         <p class="text-gray-300 text-lg leading-relaxed mb-6">
@@ -252,28 +374,28 @@
                                 <span class="text-gray-400">Hands-on practical workshops</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-secondary-500 rounded-full"></div>
                                 <span class="text-gray-400">Industry mentor connections</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-accent-500 rounded-full"></div>
                                 <span class="text-gray-400">Real-world project experience</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Vision Card -->
+                <!-- Vision Card - Enhanced -->
                 <div class="group relative">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-primary-600 rounded-2xl opacity-20 group-hover:opacity-30 blur transition duration-500"></div>
-                    <div class="relative bg-dark-800/90 backdrop-blur-sm rounded-2xl p-8 border border-dark-700 h-full">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-secondary-600 to-accent-600 rounded-2xl opacity-20 group-hover:opacity-30 blur transition duration-500"></div>
+                    <div class="relative glass-card rounded-2xl p-8 border border-primary-500/20 h-full">
                         <div class="flex items-center gap-4 mb-6">
-                            <div class="w-16 h-16 rounded-2xl bg-purple-500/20 flex items-center justify-center">
-                                <i data-feather="eye" class="w-8 h-8 text-purple-500"></i>
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary-500/20 to-accent-500/20 flex items-center justify-center">
+                                <i data-feather="eye" class="w-8 h-8 text-secondary-400"></i>
                             </div>
                             <div>
-                                <span class="text-sm font-mono text-purple-400">02</span>
-                                <h4 class="text-3xl font-bold text-white">Vision</h4>
+                                <span class="text-sm font-mono text-secondary-400">02</span>
+                                <h4 class="text-3xl font-display font-bold gradient-text">Vision</h4>
                             </div>
                         </div>
                         <p class="text-gray-300 text-lg leading-relaxed mb-6">
@@ -281,15 +403,15 @@
                         </p>
                         <div class="space-y-4">
                             <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
                                 <span class="text-gray-400">Sustainable learning community</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-secondary-500 rounded-full"></div>
                                 <span class="text-gray-400">Industry-ready graduates</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="w-2 h-2 bg-accent-500 rounded-full"></div>
                                 <span class="text-gray-400">Meaningful tech innovation</span>
                             </div>
                         </div>
@@ -297,36 +419,36 @@
                 </div>
             </div>
 
-            <!-- Core Values Section -->
+            <!-- Core Values Section - Enhanced -->
             <div class="mt-20">
-                <h4 class="text-center text-2xl font-mono text-primary-400 mb-10">&lt;core_values /&gt;</h4>
+                <h4 class="text-center text-2xl font-mono text-primary-400 mb-10 animate-pulse">&lt;core_values /&gt;</h4>
                 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-dark-800/50 rounded-xl p-6 border border-dark-700 text-center hover:border-primary-500/50 transition-all group">
-                        <div class="w-14 h-14 rounded-full bg-primary-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                            <i data-feather="code" class="w-6 h-6 text-primary-500"></i>
+                    <div class="glass-card rounded-xl p-6 border border-primary-500/20 text-center hover:border-primary-400/50 transition-all group">
+                        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <i data-feather="code" class="w-6 h-6 text-primary-400"></i>
                         </div>
-                        <h5 class="font-semibold text-white mb-2">Excellence</h5>
+                        <h5 class="font-display font-semibold text-white mb-2">Excellence</h5>
                         <p class="text-gray-500 text-sm">Striving for the highest quality in code and learning</p>
                     </div>
-                    <div class="bg-dark-800/50 rounded-xl p-6 border border-dark-700 text-center hover:border-primary-500/50 transition-all group">
-                        <div class="w-14 h-14 rounded-full bg-primary-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                            <i data-feather="users" class="w-6 h-6 text-primary-500"></i>
+                    <div class="glass-card rounded-xl p-6 border border-primary-500/20 text-center hover:border-primary-400/50 transition-all group">
+                        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-secondary-500/20 to-accent-500/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <i data-feather="users" class="w-6 h-6 text-secondary-400"></i>
                         </div>
-                        <h5 class="font-semibold text-white mb-2">Collaboration</h5>
+                        <h5 class="font-display font-semibold text-white mb-2">Collaboration</h5>
                         <p class="text-gray-500 text-sm">Learning and building together as a community</p>
                     </div>
-                    <div class="bg-dark-800/50 rounded-xl p-6 border border-dark-700 text-center hover:border-primary-500/50 transition-all group">
-                        <div class="w-14 h-14 rounded-full bg-primary-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                            <i data-feather="zap" class="w-6 h-6 text-primary-500"></i>
+                    <div class="glass-card rounded-xl p-6 border border-primary-500/20 text-center hover:border-primary-400/50 transition-all group">
+                        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-accent-500/20 to-primary-500/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <i data-feather="zap" class="w-6 h-6 text-accent-400"></i>
                         </div>
-                        <h5 class="font-semibold text-white mb-2">Innovation</h5>
+                        <h5 class="font-display font-semibold text-white mb-2">Innovation</h5>
                         <p class="text-gray-500 text-sm">Pushing boundaries with creative solutions</p>
                     </div>
-                    <div class="bg-dark-800/50 rounded-xl p-6 border border-dark-700 text-center hover:border-primary-500/50 transition-all group">
-                        <div class="w-14 h-14 rounded-full bg-primary-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                            <i data-feather="heart" class="w-6 h-6 text-primary-500"></i>
+                    <div class="glass-card rounded-xl p-6 border border-primary-500/20 text-center hover:border-primary-400/50 transition-all group">
+                        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <i data-feather="heart" class="w-6 h-6 text-pink-400"></i>
                         </div>
-                        <h5 class="font-semibold text-white mb-2">Inclusion</h5>
+                        <h5 class="font-display font-semibold text-white mb-2">Inclusion</h5>
                         <p class="text-gray-500 text-sm">Welcoming developers from all backgrounds</p>
                     </div>
                 </div>
@@ -334,97 +456,111 @@
         </div>
     </section>
 
-    <!-- Meet the Team / Leadership Section (NEW) -->
+    <!-- Meet the Team / Leadership Section - Enhanced -->
     <section id="leadership" class="py-24 relative overflow-hidden bg-dark-800/30">
         <!-- Background grid pattern -->
         <div class="absolute inset-0 bg-[linear-gradient(to_right,#4c1d95_1px,transparent_1px),linear-gradient(to_bottom,#4c1d95_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-16">
-                <h2 class="text-sm font-mono text-primary-500 uppercase tracking-wider mb-4">The Leadership</h2>
-                <h3 class="text-4xl md:text-5xl font-bold mb-6">Meet the <span class="text-primary-500">&lt;committee /&gt;</span></h3>
+                <h2 class="text-sm font-mono text-primary-400 uppercase tracking-wider mb-4">✦ The Leadership ✦</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold mb-6">
+                    Meet the <span class="gradient-text">&lt;committee /&gt;</span>
+                </h3>
                 <p class="text-gray-400 max-w-2xl mx-auto">The talented individuals who guide our community and make everything possible.</p>
-                <div class="w-24 h-1 bg-gradient-to-r from-primary-500 to-purple-600 mx-auto mt-6"></div>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 mx-auto mt-6"></div>
             </div>
 
-            <!-- Committee Members Grid -->
+            <!-- Committee Members Grid - Enhanced -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- President -->
                 <div class="group relative">
-                    <div class="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-30 blur transition duration-500"></div>
-                    <div class="relative bg-dark-800/90 rounded-2xl p-6 border border-dark-700 text-center hover:border-primary-500/50 transition-all">
-                        <div class="w-28 h-28 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary-500/20 to-purple-500/20 p-1">
-                            <div class="w-full h-full rounded-full bg-dark-700 flex items-center justify-center">
-                                <i data-feather="user" class="w-12 h-12 text-primary-400"></i>
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-2xl opacity-0 group-hover:opacity-30 blur transition duration-500"></div>
+                    <div class="relative glass-card rounded-2xl p-6 border border-primary-500/20 text-center hover:border-primary-400/50 transition-all">
+                        <div class="relative mb-4">
+                            <div class="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full blur-xl opacity-50"></div>
+                            <div class="relative w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 p-1">
+                                <div class="w-full h-full rounded-full bg-dark-800 flex items-center justify-center">
+                                    <i data-feather="user" class="w-12 h-12 text-primary-400"></i>
+                                </div>
                             </div>
                         </div>
-                        <h4 class="text-xl font-bold text-white mb-1">Sarah Mitchell</h4>
+                        <h4 class="text-xl font-display font-bold text-white mb-1">Sarah Mitchell</h4>
                         <p class="text-primary-400 font-mono text-sm mb-3">President</p>
                         <p class="text-gray-500 text-xs">3rd year Computer Science</p>
-                        <div class="flex justify-center gap-2 mt-4">
-                            <a href="#" class="text-gray-500 hover:text-primary-400"><i data-feather="github" class="w-4 h-4"></i></a>
-                            <a href="#" class="text-gray-500 hover:text-primary-400"><i data-feather="linkedin" class="w-4 h-4"></i></a>
-                            <a href="#" class="text-gray-500 hover:text-primary-400"><i data-feather="mail" class="w-4 h-4"></i></a>
+                        <div class="flex justify-center gap-3 mt-4">
+                            <a href="#" class="text-gray-500 hover:text-primary-400 transition-all hover:scale-110"><i data-feather="github" class="w-4 h-4"></i></a>
+                            <a href="#" class="text-gray-500 hover:text-primary-400 transition-all hover:scale-110"><i data-feather="linkedin" class="w-4 h-4"></i></a>
+                            <a href="#" class="text-gray-500 hover:text-primary-400 transition-all hover:scale-110"><i data-feather="mail" class="w-4 h-4"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Vice President -->
                 <div class="group relative">
-                    <div class="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-30 blur transition duration-500"></div>
-                    <div class="relative bg-dark-800/90 rounded-2xl p-6 border border-dark-700 text-center hover:border-primary-500/50 transition-all">
-                        <div class="w-28 h-28 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary-500/20 to-purple-500/20 p-1">
-                            <div class="w-full h-full rounded-full bg-dark-700 flex items-center justify-center">
-                                <i data-feather="user" class="w-12 h-12 text-primary-400"></i>
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-secondary-600 to-accent-600 rounded-2xl opacity-0 group-hover:opacity-30 blur transition duration-500"></div>
+                    <div class="relative glass-card rounded-2xl p-6 border border-primary-500/20 text-center hover:border-primary-400/50 transition-all">
+                        <div class="relative mb-4">
+                            <div class="absolute inset-0 bg-gradient-to-r from-secondary-500 to-accent-500 rounded-full blur-xl opacity-50"></div>
+                            <div class="relative w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-secondary-500 to-accent-500 p-1">
+                                <div class="w-full h-full rounded-full bg-dark-800 flex items-center justify-center">
+                                    <i data-feather="user" class="w-12 h-12 text-secondary-400"></i>
+                                </div>
                             </div>
                         </div>
-                        <h4 class="text-xl font-bold text-white mb-1">David Chen</h4>
-                        <p class="text-primary-400 font-mono text-sm mb-3">Vice President</p>
+                        <h4 class="text-xl font-display font-bold text-white mb-1">David Chen</h4>
+                        <p class="text-secondary-400 font-mono text-sm mb-3">Vice President</p>
                         <p class="text-gray-500 text-xs">4th year Software Engineering</p>
-                        <div class="flex justify-center gap-2 mt-4">
-                            <a href="#" class="text-gray-500 hover:text-primary-400"><i data-feather="github" class="w-4 h-4"></i></a>
-                            <a href="#" class="text-gray-500 hover:text-primary-400"><i data-feather="linkedin" class="w-4 h-4"></i></a>
-                            <a href="#" class="text-gray-500 hover:text-primary-400"><i data-feather="mail" class="w-4 h-4"></i></a>
+                        <div class="flex justify-center gap-3 mt-4">
+                            <a href="#" class="text-gray-500 hover:text-secondary-400 transition-all hover:scale-110"><i data-feather="github" class="w-4 h-4"></i></a>
+                            <a href="#" class="text-gray-500 hover:text-secondary-400 transition-all hover:scale-110"><i data-feather="linkedin" class="w-4 h-4"></i></a>
+                            <a href="#" class="text-gray-500 hover:text-secondary-400 transition-all hover:scale-110"><i data-feather="mail" class="w-4 h-4"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Technical Lead -->
                 <div class="group relative">
-                    <div class="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-30 blur transition duration-500"></div>
-                    <div class="relative bg-dark-800/90 rounded-2xl p-6 border border-dark-700 text-center hover:border-primary-500/50 transition-all">
-                        <div class="w-28 h-28 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary-500/20 to-purple-500/20 p-1">
-                            <div class="w-full h-full rounded-full bg-dark-700 flex items-center justify-center">
-                                <i data-feather="user" class="w-12 h-12 text-primary-400"></i>
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-accent-600 to-primary-600 rounded-2xl opacity-0 group-hover:opacity-30 blur transition duration-500"></div>
+                    <div class="relative glass-card rounded-2xl p-6 border border-primary-500/20 text-center hover:border-primary-400/50 transition-all">
+                        <div class="relative mb-4">
+                            <div class="absolute inset-0 bg-gradient-to-r from-accent-500 to-primary-500 rounded-full blur-xl opacity-50"></div>
+                            <div class="relative w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-accent-500 to-primary-500 p-1">
+                                <div class="w-full h-full rounded-full bg-dark-800 flex items-center justify-center">
+                                    <i data-feather="user" class="w-12 h-12 text-accent-400"></i>
+                                </div>
                             </div>
                         </div>
-                        <h4 class="text-xl font-bold text-white mb-1">Amara Okafor</h4>
-                        <p class="text-primary-400 font-mono text-sm mb-3">Technical Lead</p>
+                        <h4 class="text-xl font-display font-bold text-white mb-1">Amara Okafor</h4>
+                        <p class="text-accent-400 font-mono text-sm mb-3">Technical Lead</p>
                         <p class="text-gray-500 text-xs">3rd year Data Science</p>
-                        <div class="flex justify-center gap-2 mt-4">
-                            <a href="#" class="text-gray-500 hover:text-primary-400"><i data-feather="github" class="w-4 h-4"></i></a>
-                            <a href="#" class="text-gray-500 hover:text-primary-400"><i data-feather="linkedin" class="w-4 h-4"></i></a>
-                            <a href="#" class="text-gray-500 hover:text-primary-400"><i data-feather="mail" class="w-4 h-4"></i></a>
+                        <div class="flex justify-center gap-3 mt-4">
+                            <a href="#" class="text-gray-500 hover:text-accent-400 transition-all hover:scale-110"><i data-feather="github" class="w-4 h-4"></i></a>
+                            <a href="#" class="text-gray-500 hover:text-accent-400 transition-all hover:scale-110"><i data-feather="linkedin" class="w-4 h-4"></i></a>
+                            <a href="#" class="text-gray-500 hover:text-accent-400 transition-all hover:scale-110"><i data-feather="mail" class="w-4 h-4"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Events Coordinator -->
                 <div class="group relative">
-                    <div class="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-30 blur transition duration-500"></div>
-                    <div class="relative bg-dark-800/90 rounded-2xl p-6 border border-dark-700 text-center hover:border-primary-500/50 transition-all">
-                        <div class="w-28 h-28 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary-500/20 to-purple-500/20 p-1">
-                            <div class="w-full h-full rounded-full bg-dark-700 flex items-center justify-center">
-                                <i data-feather="user" class="w-12 h-12 text-primary-400"></i>
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-30 blur transition duration-500"></div>
+                    <div class="relative glass-card rounded-2xl p-6 border border-primary-500/20 text-center hover:border-primary-400/50 transition-all">
+                        <div class="relative mb-4">
+                            <div class="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full blur-xl opacity-50"></div>
+                            <div class="relative w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-pink-500 to-purple-500 p-1">
+                                <div class="w-full h-full rounded-full bg-dark-800 flex items-center justify-center">
+                                    <i data-feather="user" class="w-12 h-12 text-pink-400"></i>
+                                </div>
                             </div>
                         </div>
-                        <h4 class="text-xl font-bold text-white mb-1">James Wilson</h4>
-                        <p class="text-primary-400 font-mono text-sm mb-3">Events Coordinator</p>
+                        <h4 class="text-xl font-display font-bold text-white mb-1">James Wilson</h4>
+                        <p class="text-pink-400 font-mono text-sm mb-3">Events Coordinator</p>
                         <p class="text-gray-500 text-xs">2nd year Information Systems</p>
-                        <div class="flex justify-center gap-2 mt-4">
-                            <a href="#" class="text-gray-500 hover:text-primary-400"><i data-feather="github" class="w-4 h-4"></i></a>
-                            <a href="#" class="text-gray-500 hover:text-primary-400"><i data-feather="linkedin" class="w-4 h-4"></i></a>
-                            <a href="#" class="text-gray-500 hover:text-primary-400"><i data-feather="mail" class="w-4 h-4"></i></a>
+                        <div class="flex justify-center gap-3 mt-4">
+                            <a href="#" class="text-gray-500 hover:text-pink-400 transition-all hover:scale-110"><i data-feather="github" class="w-4 h-4"></i></a>
+                            <a href="#" class="text-gray-500 hover:text-pink-400 transition-all hover:scale-110"><i data-feather="linkedin" class="w-4 h-4"></i></a>
+                            <a href="#" class="text-gray-500 hover:text-pink-400 transition-all hover:scale-110"><i data-feather="mail" class="w-4 h-4"></i></a>
                         </div>
                     </div>
                 </div>
@@ -432,7 +568,7 @@
 
             <!-- View All Committee Button -->
             <div class="text-center mt-12">
-                <a href="#" class="inline-flex items-center gap-2 px-6 py-3 border border-primary-500/30 rounded-lg text-primary-400 hover:bg-primary-500/10 transition-all font-mono text-sm group">
+                <a href="members.html" class="inline-flex items-center gap-2 px-6 py-3 glass border border-primary-500/30 rounded-xl text-primary-400 hover:text-white hover:border-primary-400 transition-all font-mono text-sm group">
                     View Full Committee
                     <i data-feather="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                 </a>
@@ -440,72 +576,73 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-24 relative bg-dark-800/30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- About Section - Enhanced -->
+    <section id="about" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-dark-900 to-dark-800/50"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div class="space-y-6">
-                    <h2 class="text-sm font-mono text-primary-500 uppercase tracking-wider">About Us</h2>
-                    <h3 class="text-4xl md:text-5xl font-bold leading-tight">
-                        Building a <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-purple-600">community</span> that codes the future
+                    <h2 class="text-sm font-mono text-primary-400 uppercase tracking-wider">✦ About Us ✦</h2>
+                    <h3 class="text-4xl md:text-5xl font-display font-bold leading-tight">
+                        Building a <span class="gradient-text">community</span> that codes the future
                     </h3>
-                    <p class="text-gray-400 text-lg leading-relaxed">
+                    <p class="text-gray-300 text-lg leading-relaxed">
                         We're a student-led society dedicated to bridging the gap between academic learning and real-world tech industry practices.
                     </p>
                     
                     <div class="space-y-4 pt-4">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-lg bg-primary-500/10 flex items-center justify-center flex-shrink-0">
-                                <i data-feather="code" class="w-6 h-6 text-primary-500"></i>
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i data-feather="code" class="w-6 h-6 text-primary-400"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-white mb-1">Building Software Skills</h4>
-                                <p class="text-gray-500 text-sm">Building and Teaching software development skills such as programming</p>
+                                <h4 class="font-display font-semibold text-white mb-1">Building Software Skills</h4>
+                                <p class="text-gray-500 text-sm">Hands-on programming workshops and project-based learning</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-lg bg-primary-500/10 flex items-center justify-center flex-shrink-0">
-                                <i data-feather="zap" class="w-6 h-6 text-primary-500"></i>
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary-500/20 to-accent-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i data-feather="zap" class="w-6 h-6 text-secondary-400"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-white mb-1">Active Coders</h4>
-                                <p class="text-gray-500 text-sm">Participate in hackathons, building innovative projects, weekly coding tutorials.</p>
+                                <h4 class="font-display font-semibold text-white mb-1">Active Coders</h4>
+                                <p class="text-gray-500 text-sm">Hackathons, innovative projects, weekly coding tutorials</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-lg bg-primary-500/10 flex items-center justify-center flex-shrink-0">
-                                <i data-feather="heart" class="w-6 h-6 text-primary-500"></i>
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-500/20 to-pink-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i data-feather="heart" class="w-6 h-6 text-accent-400"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-white mb-1">Inclusive Culture</h4>
-                                <p class="text-gray-500 text-sm">Welcoming developers from all backgrounds and skill levels.</p>
+                                <h4 class="font-display font-semibold text-white mb-1">Inclusive Culture</h4>
+                                <p class="text-gray-500 text-sm">Welcoming developers from all backgrounds and skill levels</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="relative">
-                    <div class="absolute -inset-4 bg-gradient-to-r from-primary-600 to-purple-600 rounded-2xl opacity-30 blur-2xl"></div>
-                    <div class="relative bg-dark-800 rounded-2xl p-8 border border-dark-700">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-2xl opacity-30 blur-2xl"></div>
+                    <div class="relative glass-card rounded-2xl p-8 border border-primary-500/20">
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-4">
-                                <div class="h-32 bg-dark-700 rounded-xl overflow-hidden relative group">
+                                <div class="h-32 bg-gradient-to-br from-primary-500/20 to-secondary-500/20 rounded-xl overflow-hidden relative group">
                                     <div class="absolute inset-0 bg-gradient-to-t from-dark-900/80 to-transparent"></div>
                                     <div class="absolute bottom-2 left-2 text-xs font-mono text-primary-400">//hackathon</div>
                                 </div>
-                                <div class="h-48 bg-dark-700 rounded-xl overflow-hidden relative group">
+                                <div class="h-48 bg-gradient-to-br from-secondary-500/20 to-accent-500/20 rounded-xl overflow-hidden relative group">
                                     <div class="absolute inset-0 bg-gradient-to-t from-dark-900/80 to-transparent"></div>
-                                    <div class="absolute bottom-2 left-2 text-xs font-mono text-primary-400">#collaboration</div>
+                                    <div class="absolute bottom-2 left-2 text-xs font-mono text-secondary-400">#collaboration</div>
                                 </div>
                             </div>
                             <div class="space-y-4 mt-8">
-                                <div class="h-48 bg-dark-700 rounded-xl overflow-hidden relative group">
+                                <div class="h-48 bg-gradient-to-br from-accent-500/20 to-primary-500/20 rounded-xl overflow-hidden relative group">
                                     <div class="absolute inset-0 bg-gradient-to-t from-dark-900/80 to-transparent"></div>
-                                    <div class="absolute bottom-2 left-2 text-xs font-mono text-primary-400">&lt;team&gt;</div>
+                                    <div class="absolute bottom-2 left-2 text-xs font-mono text-accent-400">&lt;team&gt;</div>
                                 </div>
-                                <div class="h-32 bg-dark-700 rounded-xl overflow-hidden relative group">
+                                <div class="h-32 bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-xl overflow-hidden relative group">
                                     <div class="absolute inset-0 bg-gradient-to-t from-dark-900/80 to-transparent"></div>
-                                    <div class="absolute bottom-2 left-2 text-xs font-mono text-primary-400">*innovation</div>
+                                    <div class="absolute bottom-2 left-2 text-xs font-mono text-pink-400">*innovation</div>
                                 </div>
                             </div>
                         </div>
@@ -515,227 +652,275 @@
         </div>
     </section>
 
-
-
-
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-24 relative">
+    <!-- Projects Section - Enhanced -->
+    <section id="projects" class="py-24 relative overflow-hidden bg-dark-800/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                 <div>
-                    <h2 class="text-sm font-mono text-primary-500 uppercase tracking-wider mb-4">Portfolio</h2>
-                    <h3 class="text-4xl md:text-5xl font-bold">Featured <span class="text-primary-500">&lt;projects /&gt;</span></h3>
+                    <h2 class="text-sm font-mono text-primary-400 uppercase tracking-wider mb-4">✦ Portfolio ✦</h2>
+                    <h3 class="text-4xl md:text-5xl font-display font-bold">
+                        Featured <span class="gradient-text">&lt;projects /&gt;</span>
+                    </h3>
+                </div>
+                <div class="flex gap-2 overflow-x-auto pb-2">
+                    <button class="filter-btn active px-4 py-2 rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white text-sm font-medium transition-all">All</button>
+                    <button class="filter-btn px-4 py-2 rounded-xl glass border border-primary-500/30 text-gray-400 hover:text-white hover:border-primary-400 text-sm font-medium transition-all">Web</button>
+                    <button class="filter-btn px-4 py-2 rounded-xl glass border border-primary-500/30 text-gray-400 hover:text-white hover:border-primary-400 text-sm font-medium transition-all">Mobile</button>
+                    <button class="filter-btn px-4 py-2 rounded-xl glass border border-primary-500/30 text-gray-400 hover:text-white hover:border-primary-400 text-sm font-medium transition-all">AI/ML</button>
                 </div>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-dark-800/70 rounded-xl p-6 border border-dark-700 hover:border-primary-500/50 transition-all group">
-                    <i data-feather="github" class="w-8 h-8 text-primary-400 mb-4"></i>
-                    <h4 class="text-xl font-semibold mb-2">Project Alpha</h4>
+                <!-- Project 1 -->
+                <div class="group glass-card rounded-xl p-6 border border-primary-500/20 hover:border-primary-400/50 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i data-feather="github" class="w-6 h-6 text-primary-400"></i>
+                    </div>
+                    <h4 class="text-xl font-display font-semibold mb-2">Project Alpha</h4>
                     <p class="text-gray-400 text-sm mb-4">A web application for student collaboration</p>
                     <div class="flex gap-2">
-                        <span class="text-xs bg-primary-500/20 text-primary-400 px-2 py-1 rounded">React</span>
-                        <span class="text-xs bg-primary-500/20 text-primary-400 px-2 py-1 rounded">Node.js</span>
+                        <span class="text-xs bg-gradient-to-r from-primary-500/20 to-secondary-500/20 text-primary-400 px-2 py-1 rounded-full">React</span>
+                        <span class="text-xs bg-gradient-to-r from-secondary-500/20 to-accent-500/20 text-secondary-400 px-2 py-1 rounded-full">Node.js</span>
                     </div>
                 </div>
-                <div class="bg-dark-800/70 rounded-xl p-6 border border-dark-700 hover:border-primary-500/50 transition-all group">
-                    <i data-feather="smartphone" class="w-8 h-8 text-primary-400 mb-4"></i>
-                    <h4 class="text-xl font-semibold mb-2">Campus Connect</h4>
+
+                <!-- Project 2 -->
+                <div class="group glass-card rounded-xl p-6 border border-primary-500/20 hover:border-primary-400/50 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary-500/20 to-accent-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i data-feather="smartphone" class="w-6 h-6 text-secondary-400"></i>
+                    </div>
+                    <h4 class="text-xl font-display font-semibold mb-2">Campus Connect</h4>
                     <p class="text-gray-400 text-sm mb-4">Mobile app for university events</p>
                     <div class="flex gap-2">
-                        <span class="text-xs bg-primary-500/20 text-primary-400 px-2 py-1 rounded">Flutter</span>
-                        <span class="text-xs bg-primary-500/20 text-primary-400 px-2 py-1 rounded">Firebase</span>
+                        <span class="text-xs bg-gradient-to-r from-secondary-500/20 to-accent-500/20 text-secondary-400 px-2 py-1 rounded-full">Flutter</span>
+                        <span class="text-xs bg-gradient-to-r from-accent-500/20 to-primary-500/20 text-accent-400 px-2 py-1 rounded-full">Firebase</span>
                     </div>
                 </div>
-                <div class="bg-dark-800/70 rounded-xl p-6 border border-dark-700 hover:border-primary-500/50 transition-all group">
-                    <i data-feather="cpu" class="w-8 h-8 text-primary-400 mb-4"></i>
-                    <h4 class="text-xl font-semibold mb-2">Study Buddy</h4>
+
+                <!-- Project 3 -->
+                <div class="group glass-card rounded-xl p-6 border border-primary-500/20 hover:border-primary-400/50 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-500/20 to-pink-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i data-feather="cpu" class="w-6 h-6 text-accent-400"></i>
+                    </div>
+                    <h4 class="text-xl font-display font-semibold mb-2">Study Buddy</h4>
                     <p class="text-gray-400 text-sm mb-4">AI-powered study group finder</p>
                     <div class="flex gap-2">
-                        <span class="text-xs bg-primary-500/20 text-primary-400 px-2 py-1 rounded">Python</span>
-                        <span class="text-xs bg-primary-500/20 text-primary-400 px-2 py-1 rounded">TensorFlow</span>
+                        <span class="text-xs bg-gradient-to-r from-accent-500/20 to-pink-500/20 text-accent-400 px-2 py-1 rounded-full">Python</span>
+                        <span class="text-xs bg-gradient-to-r from-pink-500/20 to-primary-500/20 text-pink-400 px-2 py-1 rounded-full">TensorFlow</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Events Section -->
-    <section id="events" class="py-24 bg-gradient-to-b from-dark-900 to-dark-800 relative">
+    <!-- Events Section - Enhanced -->
+    <section id="events" class="py-24 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-sm font-mono text-primary-500 uppercase tracking-wider mb-4">Calendar</h2>
-                <h3 class="text-4xl md:text-5xl font-bold mb-6">Upcoming <span class="text-primary-500">&lt;events /&gt;</span></h3>
+                <h2 class="text-sm font-mono text-primary-400 uppercase tracking-wider mb-4">✦ Calendar ✦</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold mb-6">
+                    Upcoming <span class="gradient-text">&lt;events /&gt;</span>
+                </h3>
             </div>
 
             <div class="space-y-6">
-                <div class="bg-dark-800/70 rounded-xl p-6 border border-dark-700 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div class="flex items-center gap-4">
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-primary-400">27</div>
-                            <div class="text-sm text-gray-500">MAR</div>
+                <!-- Event 1 -->
+                <div class="group glass-card rounded-xl p-6 border border-primary-500/20 hover:border-primary-400/50 transition-all">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold font-mono gradient-text">27</div>
+                                <div class="text-sm text-gray-500">MAR</div>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-display font-semibold">React Workshop</h4>
+                                <p class="text-gray-400">Learn modern React with hooks and context</p>
+                                <div class="flex items-center gap-2 mt-2 text-xs text-gray-500">
+                                    <i data-feather="clock" class="w-3 h-3"></i>
+                                    <span>2:00 PM - 4:00 PM</span>
+                                    <i data-feather="map-pin" class="w-3 h-3 ml-2"></i>
+                                    <span>CS Lab</span>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="text-xl font-semibold">React Workshop</h4>
-                            <p class="text-gray-400">Learn modern React with hooks and context</p>
-                        </div>
+                        <a href="#" class="px-6 py-3 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl text-sm font-semibold text-white hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] transition-all group-hover:scale-105">
+                            Register →
+                        </a>
                     </div>
-                    <a href="#" class="px-4 py-2 bg-primary-600 rounded-lg text-sm">Register →</a>
                 </div>
-                <div class="bg-dark-800/70 rounded-xl p-6 border border-dark-700 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div class="flex items-center gap-4">
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-primary-400">29</div>
-                            <div class="text-sm text-gray-500">MAR</div>
+
+                <!-- Event 2 -->
+                <div class="group glass-card rounded-xl p-6 border border-primary-500/20 hover:border-primary-400/50 transition-all">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold font-mono gradient-text">29</div>
+                                <div class="text-sm text-gray-500">MAR</div>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-display font-semibold">Hackathon 2026</h4>
+                                <p class="text-gray-400">24-hour coding challenge with prizes</p>
+                                <div class="flex items-center gap-2 mt-2 text-xs text-gray-500">
+                                    <i data-feather="clock" class="w-3 h-3"></i>
+                                    <span>10:00 AM start</span>
+                                    <i data-feather="map-pin" class="w-3 h-3 ml-2"></i>
+                                    <span>Innovation Hub</span>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="text-xl font-semibold">Hackathon 2026</h4>
-                            <p class="text-gray-400">24-hour coding challenge with prizes</p>
-                        </div>
+                        <a href="#" class="px-6 py-3 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl text-sm font-semibold text-white hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] transition-all group-hover:scale-105">
+                            Register →
+                        </a>
                     </div>
-                    <a href="#" class="px-4 py-2 bg-primary-600 rounded-lg text-sm">Register →</a>
                 </div>
             </div>
         </div>
     </section>
 
-  
-
-    <!-- Community/CTA Section -->
+    <!-- Community/CTA Section - Enhanced -->
     <section id="join" class="py-24 relative overflow-hidden">
-        <div class="absolute inset-0 bg-primary-600/10"></div>
-        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-1 bg-gradient-to-r from-transparent via-primary-500 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-primary-600/5 to-secondary-600/5"></div>
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-1 bg-gradient-to-r from-transparent via-primary-500 to-secondary-500 to-transparent"></div>
         
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 text-primary-400 text-sm font-mono mb-6">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary-500/30 text-primary-400 text-sm font-mono mb-6 animate-float">
                 <i data-feather="message-circle" class="w-4 h-4"></i>
-                <span>Join DevSoc</span>
+                <span>✦ Join DevSoc ✦</span>
             </div>
             
-            <h2 class="text-4xl md:text-6xl font-bold mb-6">Ready to <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-purple-600">code</span> with us?</h2>
-            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+            <h2 class="text-4xl md:text-6xl font-display font-bold mb-6">
+                Ready to <span class="gradient-text">code</span> with us?
+            </h2>
+            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
                 Whether you're a seasoned developer or just starting your journey, there's a place for you in DevSoc.
             </p>
 
-            <div class="mt-12 flex justify-center gap-6">
-                <a href="#" class="w-12 h-12 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-gray-400 hover:text-primary-400 hover:border-primary-500/50 transition-all hover:scale-110">
+            <div class="mt-12 flex justify-center gap-4">
+                <a href="#" class="w-12 h-12 rounded-full glass border border-primary-500/30 flex items-center justify-center text-gray-400 hover:text-primary-400 hover:border-primary-400 transition-all hover:scale-110">
                     <i data-feather="github" class="w-5 h-5"></i>
                 </a>
-                <a href="#" class="w-12 h-12 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-gray-400 hover:text-primary-400 hover:border-primary-500/50 transition-all hover:scale-110">
+                <a href="#" class="w-12 h-12 rounded-full glass border border-primary-500/30 flex items-center justify-center text-gray-400 hover:text-secondary-400 hover:border-secondary-400 transition-all hover:scale-110">
                     <i data-feather="twitter" class="w-5 h-5"></i>
                 </a>
-                <a href="#" class="w-12 h-12 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-gray-400 hover:text-primary-400 hover:border-primary-500/50 transition-all hover:scale-110">
+                <a href="#" class="w-12 h-12 rounded-full glass border border-primary-500/30 flex items-center justify-center text-gray-400 hover:text-accent-400 hover:border-accent-400 transition-all hover:scale-110">
                     <i data-feather="linkedin" class="w-5 h-5"></i>
                 </a>
-                <a href="#" class="w-12 h-12 rounded-full bg-dark-800 border border-dark-700 flex items-center justify-center text-gray-400 hover:text-primary-400 hover:border-primary-500/50 transition-all hover:scale-110">
+                <a href="#" class="w-12 h-12 rounded-full glass border border-primary-500/30 flex items-center justify-center text-gray-400 hover:text-pink-400 hover:border-pink-400 transition-all hover:scale-110">
                     <i data-feather="instagram" class="w-5 h-5"></i>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Footer with Barcode and WhatsApp Group -->
-    <footer class="relative mt-16 border-t-2 border-primary-500/30 bg-gradient-to-b from-dark-900 to-dark-800 pt-16 pb-8">
-        <!-- Top border glow effect -->
-        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary-500 to-transparent"></div>
+    <!-- Footer with Barcode and WhatsApp Group - Enhanced -->
+    <footer class="relative mt-16 border-t border-primary-500/30 bg-gradient-to-b from-dark-900 to-dark-800 pt-16 pb-8 overflow-hidden">
+        <div class="absolute top-0 left-1/4 w-64 h-64 bg-primary-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-secondary-500/5 rounded-full blur-3xl"></div>
         
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <!-- Main Footer Content -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
                 <!-- Left Section - Society Info -->
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2">
-                        <span class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-primary-600">
-                            DevSoc
-                        </span>
-                        <span class="text-sm font-mono text-primary-500">&lt;dev/&gt;</span>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 p-[2px]">
+                            <div class="w-full h-full rounded-xl bg-dark-800 flex items-center justify-center">
+                                <span class="text-xl font-bold gradient-text">&lt;/&gt;</span>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-display font-bold gradient-text">DevSoc</span>
                     </div>
                     <p class="text-gray-400 text-sm leading-relaxed">
                         Rhodes University's Developers' Society - building the next generation of tech innovators through collaboration, learning, and real-world projects.
                     </p>
-                    <div class="flex gap-4 pt-2">
-                        <a href="#" class="text-gray-500 hover:text-primary-400 transition-colors">
-                            <i data-feather="github" class="w-5 h-5"></i>
+                    <div class="flex gap-3 pt-2">
+                        <a href="#" class="w-10 h-10 rounded-full glass border border-primary-500/30 flex items-center justify-center text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all hover:scale-110">
+                            <i data-feather="github" class="w-4 h-4"></i>
                         </a>
-                        <a href="#" class="text-gray-500 hover:text-primary-400 transition-colors">
-                            <i data-feather="twitter" class="w-5 h-5"></i>
+                        <a href="#" class="w-10 h-10 rounded-full glass border border-primary-500/30 flex items-center justify-center text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all hover:scale-110">
+                            <i data-feather="twitter" class="w-4 h-4"></i>
                         </a>
-                        <a href="#" class="text-gray-500 hover:text-primary-400 transition-colors">
-                            <i data-feather="linkedin" class="w-5 h-5"></i>
+                        <a href="#" class="w-10 h-10 rounded-full glass border border-primary-500/30 flex items-center justify-center text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all hover:scale-110">
+                            <i data-feather="linkedin" class="w-4 h-4"></i>
                         </a>
-                        <a href="#" class="text-gray-500 hover:text-primary-400 transition-colors">
-                            <i data-feather="instagram" class="w-5 h-5"></i>
+                        <a href="#" class="w-10 h-10 rounded-full glass border border-primary-500/30 flex items-center justify-center text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all hover:scale-110">
+                            <i data-feather="instagram" class="w-4 h-4"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Middle Section - Quick Links -->
-                <div class="grid grid-cols-2 gap-6">
+                <div class="grid grid-cols-2 gap-8">
                     <div>
-                        <h4 class="text-sm font-mono text-primary-400 mb-4">Quick Links</h4>
-                        <ul class="space-y-2">
-                            <li><a href="#events" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">Events</a></li>
-                            <li><a href="#tutors" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">Tutors</a></li>
-                            <li><a href="#lessons" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">Lessons</a></li>
-                            <li><a href="#projects" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">Projects</a></li>
-                            <li><a href="#leadership" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">Leadership</a></li>
+                        <h4 class="text-sm font-mono text-primary-400 mb-4 tracking-wider">✦ QUICK LINKS</h4>
+                        <ul class="space-y-3">
+                            <li><a href="events.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Events</a></li>
+                            <li><a href="#Developers.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Tutors</a></li>
+                            <li><a href="#Lessons.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Lessons</a></li>
+                            <li><a href="#Projects.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Projects</a></li>
+                            <li><a href="members.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Leadership</a></li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="text-sm font-mono text-primary-400 mb-4">Resources</h4>
-                        <ul class="space-y-2">
-                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">Code Library</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">Documentation</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">Workshops</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">Blog</a></li>
+                        <h4 class="text-sm font-mono text-primary-400 mb-4 tracking-wider">✦ RESOURCES</h4>
+                        <ul class="space-y-3">
+                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-secondary-500 rounded-full group-hover:w-2 transition-all"></span>Code Library</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-secondary-500 rounded-full group-hover:w-2 transition-all"></span>Documentation</a></li>
+            
                         </ul>
                     </div>
                 </div>
 
                 <!-- Right Section - WhatsApp Barcode -->
                 <div class="lg:justify-self-end">
-                    <div class="bg-dark-800/80 rounded-2xl p-6 border-2 border-primary-500/30 hover:border-primary-500/60 transition-all group">
-                        <div class="text-center">
-                            <h4 class="text-lg font-mono text-primary-400 mb-3">Join WhatsApp Group</h4>
-                            <!-- Barcode Image Placeholder -->
-                            <div class="w-40 h-40 mx-auto bg-gradient-to-br from-primary-900/50 to-purple-900/50 rounded-xl border-2 border-primary-500/30 p-3 mb-3 group-hover:scale-105 transition-transform">
-                                <div class="w-full h-full flex flex-col items-center justify-center">
-                                    <!-- Simulated barcode pattern -->
-                                    <div class="w-full space-y-1">
-                                        <div class="h-1 bg-primary-400 w-full"></div>
-                                        <div class="h-2 bg-primary-400 w-3/4 mx-auto"></div>
-                                        <div class="h-1 bg-primary-400 w-full"></div>
-                                        <div class="h-3 bg-primary-400 w-5/6 mx-auto"></div>
-                                        <div class="h-1 bg-primary-400 w-full"></div>
-                                        <div class="h-2 bg-primary-400 w-2/3 mx-auto"></div>
-                                        <div class="h-1 bg-primary-400 w-full"></div>
-                                        <div class="h-4 bg-primary-400 w-4/5 mx-auto"></div>
-                                        <div class="h-1 bg-primary-400 w-full"></div>
+                    <div class="group relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
+                        <div class="relative glass-card rounded-2xl p-6 border-2 border-primary-500/30 hover:border-primary-400/60 transition-all">
+                            <div class="text-center">
+                                <h4 class="text-lg font-display font-semibold gradient-text mb-3">Join WhatsApp Group</h4>
+                                
+                                <!-- Animated Barcode -->
+                                <div class="relative w-40 h-40 mx-auto mb-4">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl animate-pulse-slow opacity-20"></div>
+                                    <div class="relative w-full h-full bg-dark-800 rounded-xl border-2 border-primary-500/30 p-3 group-hover:scale-105 transition-transform duration-300">
+                                        <div class="w-full h-full flex flex-col items-center justify-center">
+                                            <div class="w-full space-y-1.5">
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                                <div class="h-2 bg-gradient-to-r from-primary-400 to-secondary-400 w-3/4 mx-auto rounded"></div>
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                                <div class="h-3 bg-gradient-to-r from-primary-400 to-secondary-400 w-5/6 mx-auto rounded"></div>
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                                <div class="h-2.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-2/3 mx-auto rounded"></div>
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                                <div class="h-4 bg-gradient-to-r from-primary-400 to-secondary-400 w-4/5 mx-auto rounded"></div>
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                            </div>
+                                            <span class="text-[8px] font-mono text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400 mt-2">✦ SCAN ME ✦</span>
+                                        </div>
                                     </div>
-                                    <span class="text-[8px] font-mono text-primary-300 mt-2">SCAN ME</span>
                                 </div>
+                                
+                                <!-- Join Now Button -->
+                                <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl font-semibold text-white transition-all hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] group-hover:scale-105">
+                                    <i data-feather="message-circle" class="w-4 h-4"></i>
+                                    Join Now
+                                </a>
+                                <p class="text-xs text-gray-500 mt-3">✨ Connect with 150+ developers ✨</p>
                             </div>
-                            <!-- Join Now Button -->
-                            <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 rounded-lg font-semibold text-white transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] group-hover:scale-105">
-                                <i data-feather="message-circle" class="w-4 h-4"></i>
-                                Join Now
-                            </a>
-                            <p class="text-xs text-gray-500 mt-3">Connect with 150+ developers</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Bottom Footer with Border -->
-            <div class="relative pt-8 mt-8 border-t border-dark-700">
+            <!-- Bottom Footer -->
+            <div class="relative pt-8 mt-8 border-t border-primary-500/20">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <p class="text-sm text-gray-500">
-                        © 2026 DevSoc - Developer Society. All rights reserved.
+                        © 2026 DevSoc — <span class="gradient-text">Developer Society</span>
                     </p>
-                    <div class="flex gap-6">
-                        <a href="#" class="text-xs text-gray-500 hover:text-primary-400 transition-colors">Privacy Policy</a>
-                        <a href="#" class="text-xs text-gray-500 hover:text-primary-400 transition-colors">Terms of Use</a>
+                    <div class="flex gap-8">
+                        <a href="#" class="text-xs text-gray-500 hover:text-primary-400 transition-colors">Privacy</a>
+                        <a href="#" class="text-xs text-gray-500 hover:text-primary-400 transition-colors">Terms</a>
                         <a href="#" class="text-xs text-gray-500 hover:text-primary-400 transition-colors">Code of Conduct</a>
                     </div>
                 </div>
@@ -799,6 +984,25 @@
 
         // Feather icons replacement
         feather.replace();
+
+        // Counter animation
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const count = parseInt(counter.innerText);
+                const increment = target / 50;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment) + '+';
+                    setTimeout(updateCount, 20);
+                } else {
+                    counter.innerText = target + '+';
+                }
+            };
+            
+            updateCount();
+        });
     </script>
 </body>
 </html>
