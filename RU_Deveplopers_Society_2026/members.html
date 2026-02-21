@@ -1076,105 +1076,85 @@
     </footer>
 
     <script>
-        // Hamburger menu functionality
-        const menuToggle = document.getElementById('menuToggle');
-        const dropdown = document.getElementById('dropdownNav');
+ // Hamburger menu functionality
+const menuToggle = document.getElementById('menuToggle');
+const dropdown = document.getElementById('dropdownNav');
 
-        function closeDropdown() {
-            dropdown.classList.add('hidden');
-        }
+function closeDropdown() {
+    dropdown.classList.add('hidden');
+}
 
-        function openDropdown() {
-            dropdown.classList.remove('hidden');
-        }
+function openDropdown() {
+    dropdown.classList.remove('hidden');
+}
 
-        menuToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (dropdown.classList.contains('hidden')) {
-                openDropdown();
-            } else {
-                closeDropdown();
-            }
-        });
+menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (dropdown.classList.contains('hidden')) {
+        openDropdown();
+    } else {
+        closeDropdown();
+    }
+});
 
-        // Close when clicking on nav links
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                closeDropdown();
-            });
-        });
-
-        // Close when clicking outside
-        document.addEventListener('click', (event) => {
-            if (!dropdown.classList.contains('hidden') && 
-                !dropdown.contains(event.target) && 
-                !menuToggle.contains(event.target)) {
-                closeDropdown();
-            }
-        });
-
-        // Close on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !dropdown.classList.contains('hidden')) {
-                closeDropdown();
-            }
-        });
-
-        // Feather icons replacement
-        feather.replace();
-
-        // Member search functionality
-        document.getElementById('member-search').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const members = document.querySelectorAll('.member-card');
-            
-            members.forEach(member => {
-                const name = member.querySelector('h3').textContent.toLowerCase();
-                const skills = member.querySelectorAll('.skill-tag');
-                const bio = member.querySelector('.text-gray-500').textContent.toLowerCase();
-                
-                let skillText = '';
-                skills.forEach(skill => skillText += skill.textContent.toLowerCase() + ' ');
-                
-                if (name.includes(searchTerm) || skillText.includes(searchTerm) || bio.includes(searchTerm)) {
-                    member.style.display = 'block';
-                } else {
-                    member.style.display = 'none';
-                }
-            });
-        });
+// Handle navigation links - only intercept anchor links
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
         
-        // Filter functionality
-        document.querySelectorAll('.filter-member-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                // Remove active class from all buttons
-                document.querySelectorAll('.filter-member-btn').forEach(btn => {
-                    btn.classList.remove('active', 'bg-gradient-to-r', 'from-primary-600', 'to-secondary-600', 'text-white');
-                    btn.classList.add('glass', 'border', 'border-primary-500/30', 'text-gray-400');
-                });
-                
-                // Add active class to clicked button
-                this.classList.add('active', 'bg-gradient-to-r', 'from-primary-600', 'to-secondary-600', 'text-white');
-                this.classList.remove('glass', 'border-primary-500/30', 'text-gray-400');
-                
-                const filter = this.dataset.filter;
-                const members = document.querySelectorAll('.member-card');
-                
-                members.forEach(member => {
-                    if (filter === 'all') {
-                        member.style.display = 'block';
-                    } else {
-                        const categories = member.dataset.category.split(' ');
-                        if (categories.includes(filter)) {
-                            member.style.display = 'block';
-                        } else {
-                            member.style.display = 'none';
-                        }
-                    }
-                });
-            });
-        });
+        // Only prevent default and handle smooth scroll if it's an anchor link
+        if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const targetEl = document.querySelector(href);
+            if (targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        // For regular links (events.html, etc.), do nothing - let them work normally
+        
+        closeDropdown();
+    });
+});
+
+// Close when clicking outside
+document.addEventListener('click', (event) => {
+    if (!dropdown.classList.contains('hidden') && 
+        !dropdown.contains(event.target) && 
+        !menuToggle.contains(event.target)) {
+        closeDropdown();
+    }
+});
+
+// Close on escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !dropdown.classList.contains('hidden')) {
+        closeDropdown();
+    }
+});
+
+// Feather icons replacement
+feather.replace();
+
+// Counter animation
+const counters = document.querySelectorAll('.counter');
+counters.forEach(counter => {
+    const updateCount = () => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const count = parseInt(counter.innerText);
+        const increment = target / 50;
+        
+        if (count < target) {
+            counter.innerText = Math.ceil(count + increment) + '+';
+            setTimeout(updateCount, 20);
+        } else {
+            counter.innerText = target + '+';
+        }
+    };
+    
+    updateCount();
+});
+
+
     </script>
 </body>
 </html>

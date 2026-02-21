@@ -721,50 +721,84 @@ tailwind.config = {
     // Re-initialize feather icons for dynamically added content
     feather.replace();
 
-    // Hamburger menu functionality
-    const menuToggle = document.getElementById('menuToggle');
-    const dropdown = document.getElementById('dropdownNav');
+ // Hamburger menu functionality
+const menuToggle = document.getElementById('menuToggle');
+const dropdown = document.getElementById('dropdownNav');
 
-    function closeDropdown() {
-        dropdown.classList.add('hidden');
+function closeDropdown() {
+    dropdown.classList.add('hidden');
+}
+
+function openDropdown() {
+    dropdown.classList.remove('hidden');
+}
+
+menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (dropdown.classList.contains('hidden')) {
+        openDropdown();
+    } else {
+        closeDropdown();
     }
+});
 
-    function openDropdown() {
-        dropdown.classList.remove('hidden');
-    }
-
-    menuToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (dropdown.classList.contains('hidden')) {
-            openDropdown();
-        } else {
-            closeDropdown();
-        }
-    });
-
-    // Close when clicking on nav links
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', (e) => {
+// Handle navigation links - only intercept anchor links
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        
+        // Only prevent default and handle smooth scroll if it's an anchor link
+        if (href && href.startsWith('#')) {
             e.preventDefault();
-            closeDropdown();
-        });
-    });
-
-    // Close when clicking outside
-    document.addEventListener('click', (event) => {
-        if (!dropdown.classList.contains('hidden') && 
-            !dropdown.contains(event.target) && 
-            !menuToggle.contains(event.target)) {
-            closeDropdown();
+            const targetEl = document.querySelector(href);
+            if (targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth' });
+            }
         }
+        // For regular links (events.html, etc.), do nothing - let them work normally
+        
+        closeDropdown();
     });
+});
 
-    // Close on escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !dropdown.classList.contains('hidden')) {
-            closeDropdown();
+// Close when clicking outside
+document.addEventListener('click', (event) => {
+    if (!dropdown.classList.contains('hidden') && 
+        !dropdown.contains(event.target) && 
+        !menuToggle.contains(event.target)) {
+        closeDropdown();
+    }
+});
+
+// Close on escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !dropdown.classList.contains('hidden')) {
+        closeDropdown();
+    }
+});
+
+// Feather icons replacement
+feather.replace();
+
+// Counter animation
+const counters = document.querySelectorAll('.counter');
+counters.forEach(counter => {
+    const updateCount = () => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const count = parseInt(counter.innerText);
+        const increment = target / 50;
+        
+        if (count < target) {
+            counter.innerText = Math.ceil(count + increment) + '+';
+            setTimeout(updateCount, 20);
+        } else {
+            counter.innerText = target + '+';
         }
-    });
+    };
+    
+    updateCount();
+});
+
     </script>
 </body>
 </html>
