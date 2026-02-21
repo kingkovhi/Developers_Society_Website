@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevSoc | Page Under Construction</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+    darkMode: 'class',
+    theme: {
+        extend: {
+            colors: {
+                primary: {
+                    300: '#c4b5fd',
+                    400: '#a78bfa',
+                    500: '#8b5cf6',
+                    600: '#7c3aed',
+                },
+                secondary: {
+                    400: '#f472b6',
+                    500: '#ec4899',
+                },
+                accent: {
+                    400: '#2dd4bf',
+                    500: '#14b8a6',
+                },
+                dark: {
+                    900: '#0a0a0a',
+                    800: '#121212',
+                    700: '#1e1e1e',
+                    600: '#2d2d2d',
+                }
+            },
+            fontFamily: {
+                mono: ['"Fira Code"', 'monospace'],
+                sans: ['"Inter"', 'system-ui'],
+                display: ['"Clash Display"', '"Inter"', 'sans-serif'],
+            },
+            animation: {
+                'float': 'float 6s ease-in-out infinite',
+                'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                'glow': 'glow 2s ease-in-out infinite alternate',
+                'gradient': 'gradient 8s linear infinite',
+                'spin-slow': 'spin 8s linear infinite',
+                'bounce-slow': 'bounce 3s infinite',
+                'wiggle': 'wiggle 1s ease-in-out infinite',
+                'saw': 'saw 2s linear infinite',
+                'drill': 'drill 0.5s ease-in-out infinite',
+            },
+            keyframes: {
+                float: {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-20px)' },
+                },
+                glow: {
+                    '0%': { boxShadow: '0 0 20px rgba(139,92,246,0.3), 0 0 40px rgba(236,72,153,0.2)' },
+                    '100%': { boxShadow: '0 0 40px rgba(139,92,246,0.6), 0 0 60px rgba(236,72,153,0.4)' },
+                },
+                gradient: {
+                    '0%, 100%': { backgroundPosition: '0% 50%' },
+                    '50%': { backgroundPosition: '100% 50%' },
+                },
+                wiggle: {
+                    '0%, 100%': { transform: 'rotate(-3deg)' },
+                    '50%': { transform: 'rotate(3deg)' },
+                },
+                saw: {
+                    '0%': { transform: 'translateX(0) rotate(0deg)' },
+                    '25%': { transform: 'translateX(-5px) rotate(-5deg)' },
+                    '75%': { transform: 'translateX(5px) rotate(5deg)' },
+                    '100%': { transform: 'translateX(0) rotate(0deg)' },
+                },
+                drill: {
+                    '0%, 100%': { transform: 'rotate(0deg)' },
+                    '25%': { transform: 'rotate(10deg)' },
+                    '75%': { transform: 'rotate(-10deg)' },
+                }
+            }
+        }
+    }
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/feather-icons"></script>
+
+<style>
+    /* Glass morphism effects */
+    .glass {
+        background: rgba(18, 18, 18, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .glass-card {
+        background: rgba(30, 30, 30, 0.6);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(139, 92, 246, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .glass-card:hover {
+        border-color: rgba(139, 92, 246, 0.4);
+        box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+        transform: translateY(-5px);
+    }
+
+    /* Gradient text */
+    .gradient-text {
+        background: linear-gradient(135deg, #a78bfa, #ec4899, #2dd4bf);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 300% 300%;
+        animation: gradient 6s ease infinite;
+    }
+
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Grid pattern */
+    .grid-pattern {
+        background-image: 
+            linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+        background-size: 50px 50px;
+    }
+
+    /* Construction tape animation */
+    .construction-tape {
+        background: repeating-linear-gradient(
+            45deg,
+            #fbbf24 0px,
+            #fbbf24 10px,
+            #000000 10px,
+            #000000 20px
+        );
+        animation: slide 20s linear infinite;
+    }
+
+    @keyframes slide {
+        0% { background-position: 0 0; }
+        100% { background-position: 200px 0; }
+    }
+
+    /* Tool animations */
+    .tool {
+        transition: all 0.3s ease;
+    }
+
+    .tool:hover {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    /* Bouncing dots */
+    .dot-bounce {
+        animation: bounceDot 1.4s infinite;
+    }
+
+    .dot-bounce:nth-child(2) { animation-delay: 0.2s; }
+    .dot-bounce:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounceDot {
+        0%, 60%, 100% { transform: translateY(0); }
+        30% { transform: translateY(-10px); }
+    }
+
+    /* Hard hat glow */
+    .hard-hat {
+        filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.5));
+    }
+</style>
+</head>
+
+<body class="bg-dark-900 text-gray-100 font-sans overflow-x-hidden relative">
+
+    <!-- Animated Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-20 w-72 h-72 bg-primary-600/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute top-1/3 right-0 w-96 h-96 bg-secondary-500/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-0 left-1/4 w-80 h-80 bg-accent-500/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 4s;"></div>
+        <div class="absolute inset-0 grid-pattern opacity-30"></div>
+    </div>
+
+    <!-- Custom Header -->
+    <header class="fixed top-0 left-0 w-full z-50 glass border-b border-primary-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Left side: Hamburger + Logo -->
+                <div class="flex items-center gap-4">
+                    <!-- Hamburger Button -->
+                    <button id="menuToggle" class="w-12 h-12 rounded-xl bg-gradient-to-br from-dark-800 to-dark-700 border border-primary-500/30 text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all flex items-center justify-center group relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-secondary-500/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <i data-feather="menu" class="w-5 h-5 relative z-10"></i>
+                    </button>
+                    
+                    <!-- Logo -->
+                    <a href="index.html" class="flex items-center gap-3 group">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 p-[2px] group-hover:rotate-6 transition-transform">
+                            <div class="w-full h-full rounded-xl bg-dark-800 flex items-center justify-center">
+                                <span class="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">
+                                    &lt;/&gt;
+                                </span>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-display font-bold">
+                            <span class="gradient-text">DevSoc</span>
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Right side - Construction Status -->
+                <div class="hidden md:flex items-center gap-3">
+                    <span class="text-sm font-mono text-yellow-400/60">✦ under construction ✦</span>
+                    <div class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></div>
+                    <span class="text-xs text-gray-500">working on it</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dropdown Navigation Menu -->
+        <nav id="dropdownNav" class="hidden absolute top-full left-0 w-full glass border-t border-primary-500/20 shadow-2xl py-8 px-4">
+            <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+                <a href="events.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="calendar" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Events</span>
+                </a>
+                <a href="tutors.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="users" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Tutors</span>
+                </a>
+                <a href="lessons.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="book-open" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Lessons</span>
+                </a>
+                <a href="projects.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="code" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Projects</span>
+                </a>
+                <a href="leadership.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="award" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Leadership</span>
+                </a>
+                <a href="about.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="info" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">About</span>
+                </a>
+                <a href="contacts.html" class="nav-link group relative overflow-hidden rounded-2xl bg-dark-800/50 border border-primary-500/20 hover:border-primary-400/50 transition-all p-6 text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="mail" class="w-8 h-8 text-primary-400 mx-auto mb-3 group-hover:scale-110 group-hover:rotate-3 transition-all"></i>
+                    <span class="font-display font-medium text-lg">Contacts</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Spacer for fixed header -->
+    <div class="h-16 md:h-20"></div>
+
+    <!-- Construction Tape Banner -->
+    <div class="construction-tape w-full h-3 absolute top-20 left-0 z-10"></div>
+
+    <!-- Main Under Construction Section -->
+    <section class="min-h-[70vh] flex items-center justify-center relative overflow-hidden py-20">
+        <!-- Decorative elements -->
+        <div class="absolute top-20 right-20 w-32 h-32 border border-yellow-500/20 rounded-full animate-spin-slow"></div>
+        <div class="absolute bottom-20 left-20 w-40 h-40 border border-orange-500/20 rounded-full animate-spin-slow" style="animation-direction: reverse;"></div>
+        
+        <!-- Floating tools background -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+            <i data-feather="tool" class="absolute top-1/4 left-1/4 w-16 h-16 text-yellow-500 animate-float"></i>
+            <i data-feather="wrench" class="absolute top-1/3 right-1/3 w-12 h-12 text-orange-500 animate-bounce-slow"></i>
+            <i data-feather="hard-drive" class="absolute bottom-1/4 right-1/4 w-20 h-20 text-primary-400 animate-spin-slow"></i>
+            <i data-feather="zap" class="absolute top-2/3 left-1/3 w-10 h-10 text-yellow-400 animate-pulse"></i>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <!-- Animated badge with tools -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-yellow-500/30 mb-8 animate-float">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></span>
+                <span class="text-yellow-400 text-sm font-mono flex items-center gap-2">
+                    <i data-feather="tool" class="w-4 h-4 animate-wiggle"></i>
+                    ✦ WORK IN PROGRESS ✦
+                    <i data-feather="wrench" class="w-4 h-4 animate-wiggle" style="animation-delay: 0.2s;"></i>
+                </span>
+            </div>
+
+            <!-- Main Title with Hard Hat Icon -->
+            <div class="relative mb-8">
+                <div class="absolute -top-16 left-1/2 transform -translate-x-1/2">
+                    <div class="hard-hat animate-bounce-slow">
+                        <i data-feather="hard-hat" class="w-20 h-20 text-yellow-500"></i>
+                    </div>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-display font-bold mb-6 pt-16">
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400">
+                        UNDER
+                    </span>
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-secondary-400 to-primary-400">
+                        CONSTRUCTION
+                    </span>
+                </h1>
+            </div>
+
+            <!-- Animated Code Symbol -->
+            <div class="flex justify-center items-center gap-4 mb-8">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 flex items-center justify-center animate-pulse">
+                    <span class="text-3xl font-mono text-yellow-500">&lt;</span>
+                </div>
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center animate-pulse" style="animation-delay: 0.2s;">
+                    <span class="text-3xl font-mono text-primary-400">/&gt;</span>
+                </div>
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 flex items-center justify-center animate-pulse" style="animation-delay: 0.4s;">
+                    <span class="text-3xl font-mono text-yellow-500">{ }</span>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+                This page is currently under construction. Our developers and kovhi are working hard to bring you blah blah......<br>their studying!
+            </p>
+
+            <!-- Animated Progress Bar -->
+            <div class="max-w-md mx-auto mb-12">
+                <div class="flex justify-between text-sm text-gray-500 mb-2">
+                    <span>Building progress</span>
+                    <span class="font-mono text-primary-400">73%</span>
+                </div>
+                <div class="w-full h-4 bg-dark-700 rounded-full overflow-hidden border border-primary-500/30">
+                    <div class="h-full bg-gradient-to-r from-yellow-500 via-primary-500 to-secondary-500 rounded-full animate-pulse" style="width: 73%;"></div>
+                </div>
+                <div class="flex justify-between mt-2 text-xs text-gray-600">
+                    <span>⚡ coding</span>
+                    <span>🎨 designing</span>
+                    <span>🚀 deploying</span>
+                </div>
+            </div>
+
+            <!-- Construction Tools Grid -->
+            <div class="grid grid-cols-3 sm:grid-cols-5 gap-4 max-w-2xl mx-auto mb-12">
+                <div class="tool glass-card rounded-xl p-4 border border-yellow-500/20 hover:border-yellow-400/50 transition-all group">
+                    <i data-feather="tool" class="w-8 h-8 text-yellow-400 mx-auto group-hover:rotate-12 transition-transform"></i>
+                </div>
+                <div class="tool glass-card rounded-xl p-4 border border-primary-500/20 hover:border-primary-400/50 transition-all group">
+                    <i data-feather="wrench" class="w-8 h-8 text-primary-400 mx-auto group-hover:-rotate-12 transition-transform"></i>
+                </div>
+                <div class="tool glass-card rounded-xl p-4 border border-secondary-500/20 hover:border-secondary-400/50 transition-all group">
+                    <i data-feather="hard-drive" class="w-8 h-8 text-secondary-400 mx-auto group-hover:scale-110 transition-transform"></i>
+                </div>
+                <div class="tool glass-card rounded-xl p-4 border border-accent-500/20 hover:border-accent-400/50 transition-all group">
+                    <i data-feather="cpu" class="w-8 h-8 text-accent-400 mx-auto group-hover:animate-spin-slow"></i>
+                </div>
+                <div class="tool glass-card rounded-xl p-4 border border-orange-500/20 hover:border-orange-400/50 transition-all group">
+                    <i data-feather="zap" class="w-8 h-8 text-orange-400 mx-auto group-hover:animate-pulse"></i>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="index.html" class="group relative px-8 py-4 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl font-semibold text-white overflow-hidden transition-all hover:shadow-[0_0_40px_rgba(139,92,246,0.6)] flex items-center justify-center gap-2">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    <i data-feather="home" class="w-5 h-5 relative z-10"></i>
+                    <span class="relative z-10">Back to Home</span>
+                </a>
+                <a href="#" class="group px-8 py-4 glass border border-yellow-500/30 rounded-xl font-semibold text-gray-300 hover:text-white hover:border-yellow-400 transition-all flex items-center justify-center gap-2 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-yellow-600/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-feather="bell" class="w-5 h-5 relative z-10"></i>
+                    <span class="relative z-10">Notify Me When Ready</span>
+                </a>
+            </div>
+
+            <!-- Bouncing Dots -->
+            <div class="flex justify-center gap-2 mt-12">
+                <div class="w-2 h-2 bg-primary-400 rounded-full dot-bounce"></div>
+                <div class="w-2 h-2 bg-secondary-400 rounded-full dot-bounce"></div>
+                <div class="w-2 h-2 bg-accent-400 rounded-full dot-bounce"></div>
+            </div>
+
+            <!-- Estimated Completion -->
+            <p class="text-sm text-gray-500 mt-8 font-mono">
+                ✦ Estimated completion: <span class="text-primary-400">Coming Soon,After Graduation</span> ✦
+            </p>
+        </div>
+    </section>
+
+    <!-- Construction Workers (Fun Section) -->
+    <section class="pb-20">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="glass-card rounded-2xl p-8 border border-yellow-500/20 text-center">
+                <h3 class="text-2xl font-display font-bold mb-4">
+                    <span class="gradient-text">👷‍♂️ Hard at Work 👷‍♀️</span>
+                </h3>
+                <p class="text-gray-400 mb-6">
+                    Our team of developers have life especially kovhi. Go home fam!
+                </p>
+                <div class="flex justify-center gap-6">
+                    <div class="flex -space-x-2">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 border-2 border-dark-800 flex items-center justify-center text-xs font-bold text-white">JD</div>
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-secondary-500 to-accent-500 border-2 border-dark-800 flex items-center justify-center text-xs font-bold text-white">MK</div>
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-accent-500 to-primary-500 border-2 border-dark-800 flex items-center justify-center text-xs font-bold text-white">NT</div>
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 border-2 border-dark-800 flex items-center justify-center text-xs font-bold text-white">PR</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Footer -->
+    <footer class="relative mt-16 border-t border-primary-500/30 bg-gradient-to-b from-dark-900 to-dark-800 pt-16 pb-8 overflow-hidden">
+        <div class="absolute top-0 left-1/4 w-64 h-64 bg-primary-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-secondary-500/5 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
+                <!-- Left Section - Society Info -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 p-[2px]">
+                            <div class="w-full h-full rounded-xl bg-dark-800 flex items-center justify-center">
+                                <span class="text-xl font-bold gradient-text">&lt;/&gt;</span>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-display font-bold gradient-text">DevSoc</span>
+                    </div>
+                    
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Rhodes University's Developers' Society - building the next generation of tech innovators through collaboration, learning, and real-world projects.
+                    </p>
+                    
+                    <div class="flex gap-3 pt-2">
+                        <a href="#" class="w-10 h-10 rounded-full glass border border-primary-500/30 flex items-center justify-center text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all hover:scale-110">
+                            <i data-feather="github" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full glass border border-primary-500/30 flex items-center justify-center text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all hover:scale-110">
+                            <i data-feather="twitter" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full glass border border-primary-500/30 flex items-center justify-center text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all hover:scale-110">
+                            <i data-feather="linkedin" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full glass border border-primary-500/30 flex items-center justify-center text-primary-400 hover:text-primary-300 hover:border-primary-400 transition-all hover:scale-110">
+                            <i data-feather="instagram" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Middle Section - Quick Links -->
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-sm font-mono text-primary-400 mb-4 tracking-wider">✦ QUICK LINKS</h4>
+                        <ul class="space-y-3">
+                            <li><a href="events.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Events</a></li>
+                            <li><a href="tutors.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Tutors</a></li>
+                            <li><a href="lessons.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Lessons</a></li>
+                            <li><a href="projects.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Projects</a></li>
+                            <li><a href="leadership.html" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-primary-500 rounded-full group-hover:w-2 transition-all"></span>Leadership</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-mono text-primary-400 mb-4 tracking-wider">✦ RESOURCES</h4>
+                        <ul class="space-y-3">
+                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-secondary-500 rounded-full group-hover:w-2 transition-all"></span>Code Library</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-secondary-500 rounded-full group-hover:w-2 transition-all"></span>Documentation</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-secondary-500 rounded-full group-hover:w-2 transition-all"></span>Workshops</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors flex items-center gap-2 group"><span class="w-1 h-1 bg-secondary-500 rounded-full group-hover:w-2 transition-all"></span>Blog</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right Section - WhatsApp Barcode -->
+                <div class="lg:justify-self-end">
+                    <div class="group relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
+                        <div class="relative glass-card rounded-2xl p-6 border-2 border-primary-500/30 hover:border-primary-400/60 transition-all">
+                            <div class="text-center">
+                                <h4 class="text-lg font-display font-semibold gradient-text mb-3">Join WhatsApp Group</h4>
+                                
+                                <!-- Animated Barcode -->
+                                <div class="relative w-40 h-40 mx-auto mb-4">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl animate-pulse-slow opacity-20"></div>
+                                    <div class="relative w-full h-full bg-dark-800 rounded-xl border-2 border-primary-500/30 p-3 group-hover:scale-105 transition-transform duration-300">
+                                        <div class="w-full h-full flex flex-col items-center justify-center">
+                                            <div class="w-full space-y-1.5">
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                                <div class="h-2 bg-gradient-to-r from-primary-400 to-secondary-400 w-3/4 mx-auto rounded"></div>
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                                <div class="h-3 bg-gradient-to-r from-primary-400 to-secondary-400 w-5/6 mx-auto rounded"></div>
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                                <div class="h-2.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-2/3 mx-auto rounded"></div>
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                                <div class="h-4 bg-gradient-to-r from-primary-400 to-secondary-400 w-4/5 mx-auto rounded"></div>
+                                                <div class="h-1.5 bg-gradient-to-r from-primary-400 to-secondary-400 w-full rounded"></div>
+                                            </div>
+                                            <span class="text-[8px] font-mono text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400 mt-2">✦ SCAN ME ✦</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Join Now Button -->
+                                <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl font-semibold text-white transition-all hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] group-hover:scale-105">
+                                    <i data-feather="message-circle" class="w-4 h-4"></i>
+                                    Join Now
+                                </a>
+                                <p class="text-xs text-gray-500 mt-3">✨ Connect with 150+ developers ✨</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="relative pt-8 mt-8 border-t border-primary-500/20">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-500">
+                        © 2026 DevSoc — <span class="gradient-text">Developer Society</span>
+                    </p>
+                    <div class="flex gap-8">
+                        <a href="#" class="text-xs text-gray-500 hover:text-primary-400 transition-colors">Privacy</a>
+                        <a href="#" class="text-xs text-gray-500 hover:text-primary-400 transition-colors">Terms</a>
+                        <a href="#" class="text-xs text-gray-500 hover:text-primary-400 transition-colors">Code of Conduct</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Hamburger menu functionality
+    const menuToggle = document.getElementById('menuToggle');
+    const dropdown = document.getElementById('dropdownNav');
+
+    function closeDropdown() {
+        dropdown.classList.add('hidden');
+    }
+
+    function openDropdown() {
+        dropdown.classList.remove('hidden');
+    }
+
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (dropdown.classList.contains('hidden')) {
+            openDropdown();
+        } else {
+            closeDropdown();
+        }
+    });
+
+    // Close when clicking on nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeDropdown();
+        });
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (event) => {
+        if (!dropdown.classList.contains('hidden') && 
+            !dropdown.contains(event.target) && 
+            !menuToggle.contains(event.target)) {
+            closeDropdown();
+        }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !dropdown.classList.contains('hidden')) {
+            closeDropdown();
+        }
+    });
+
+    // Feather icons replacement
+    feather.replace();
+    </script>
+</body>
+</html>
