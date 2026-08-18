@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root {
+    /* Deep aubergine-ink base, muted Rhodes-purple accent, academic gold for
+       distinction/awards. Chosen over the generic cream/serif or
+       black/acid-green defaults to feel closer to a bound transcript than a
+       SaaS landing page. */
+    --ink: #120E1A;
+    --surface: #1C1526;
+    --surface-raised: #241B33;
+    --text-primary: #F3EFEA;
+    --text-secondary: #B3A5C9;
+    --text-muted: #7C7092;
+    --accent: #A78BDA;      /* muted violet — structure, links, current focus */
+    --accent-strong: #8B6FC2;
+    --gold: #CBA135;        /* distinction — awards, dates, emphasis */
+    --border: #2E2440;
+    --border-soft: #241D33;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--ink);
+    background-image:
+        radial-gradient(circle, rgba(167, 139, 218, 0.10) 1px, transparent 1px);
+    background-size: 26px 26px;
+    color: var(--text-primary);
+    line-height: 1.65;
+    padding-bottom: 60px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 25px;
+}
+
+a { color: var(--accent); }
+
+/* ---------- Header ---------- */
+header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 34px 0 22px 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+}
+
+header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+nav ul { display: flex; list-style: none; gap: 28px; }
+nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding-bottom: 4px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+nav a:hover, nav a.active { color: var(--gold); border-color: var(--gold); }
+
+/* ---------- Eyebrow + Section headings ---------- */
+.eyebrow {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+}
+
+main h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.9rem;
+    margin: 52px 0 22px 0;
+    padding-bottom: 12px;
+    position: relative;
+}
+main h2::after {
+    content: "";
+    display: block;
+    width: 46px;
+    height: 2px;
+    background: var(--gold);
+    margin-top: 12px;
+}
+main h2:first-of-type { margin-top: 0; }
+
+/* ---------- Homepage Hero ---------- */
+.hero {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 44px;
+    margin-bottom: 56px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+}
+.hero .portrait-frame {
+    flex-shrink: 0;
+    width: 180px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    padding: 4px;
+    background: linear-gradient(135deg, var(--gold), var(--accent-strong));
+}
+.hero img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    border: 4px solid var(--ink);
+}
+.hero-text h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.hero-text h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1rem;
+    color: var(--gold);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    margin-bottom: 16px;
+}
+.hero-text p { color: var(--text-secondary); font-size: 1.02rem; margin-bottom: 22px; max-width: 54ch; }
+
+.btn {
+    display: inline-block;
+    padding: 11px 22px;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 3px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.btn:hover { background: var(--gold); color: var(--ink); }
+
+main > p { color: var(--text-secondary); }
+
+/* ---------- Cards & Lists ---------- */
+.grid-list { display: flex; flex-direction: column; gap: 18px; list-style: none; }
+
+.card {
+    background-color: var(--surface);
+    padding: 22px 26px;
+    border-radius: 8px;
+    border: 1px solid var(--border-soft);
+    border-left: 3px solid var(--accent);
+    transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+.card:hover { border-left-color: var(--gold); background: var(--surface-raised); transform: translateX(2px); }
+.card h3 { font-family: 'Fraunces', serif; color: var(--text-primary); font-size: 1.15rem; font-weight: 600; margin-bottom: 6px; }
+.card p { color: var(--text-secondary); font-size: 0.98rem; margin: 0; }
+.card .role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: inline-block;
+    letter-spacing: 0.02em;
+}
+
+/* Awards get the gold rail — they mark distinction, not activity */
+.awards .card, .card.award { border-left-color: var(--gold); }
+
+/* ---------- Experience timeline ----------
+   Genuinely chronological content, so a dated rail earns its place here
+   (unlike arbitrary 01/02/03 numbering elsewhere on the page). */
+.timeline { list-style: none; display: flex; flex-direction: column; gap: 0; position: relative; }
+.timeline-item { display: flex; gap: 24px; position: relative; padding-bottom: 28px; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: 84px;
+    top: 6px;
+    bottom: -22px;
+    width: 1px;
+    background: var(--border);
+}
+.timeline-item:last-child::before { display: none; }
+.timeline-date {
+    flex: 0 0 70px;
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gold);
+    padding-top: 4px;
+    line-height: 1.5;
+}
+.timeline-dot {
+    position: absolute;
+    left: 79px;
+    top: 8px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 2px solid var(--gold);
+}
+.timeline-content { flex: 1; }
+.timeline-content .card { border-left: none; }
+
+/* ---------- Media Cards (Image + Text) ---------- */
+.media-card {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 26px;
+}
+.media-card .text-content { flex: 1; min-width: 0; }
+.media-card .image-content {
+    flex: 0 0 260px;
+}
+.media-card .image-content .frame {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface-raised);
+}
+.media-card .image-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* ---------- Skill Tags ---------- */
+.tag-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.tag {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    padding: 6px 13px;
+    border-radius: 3px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    transition: 0.18s ease;
+}
+.tag:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ---------- Credential strip (certificates / verified badges) ---------- */
+.credential {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 8px;
+    padding: 16px 22px;
+    margin-top: 18px;
+}
+.credential .credential-mark {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.credential p { color: var(--text-secondary); font-size: 0.92rem; margin: 0; }
+.credential a { color: var(--gold); }
+
+footer { margin-top: 70px; padding-top: 26px; border-top: 1px solid var(--border); text-align: center; }
+footer h3 { font-family: 'Fraunces', serif; margin-bottom: 10px; }
+footer a { color: var(--gold); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 650px) {
+    header { flex-direction: column; align-items: flex-start; gap: 15px; }
+    .hero { flex-direction: column; text-align: center; }
+    .hero .portrait-frame { width: 140px; }
+    .hero-text p { max-width: none; }
+    .media-card { flex-direction: column; }
+    .media-card .image-content { flex: 1 1 auto; width: 100%; }
+    .media-card .image-content .frame { aspect-ratio: 16 / 10; }
+    .timeline-item { gap: 16px; }
+    .timeline-date { flex-basis: 54px; font-size: 0.68rem; }
+    .timeline-item::before { left: 66px; }
+    .timeline-dot { left: 61px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+}
